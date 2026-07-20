@@ -1,0 +1,73 @@
+generated: '2026-07-19'
+method: derived
+source: graphql/koppla-graphql-introspection.json + live probes of api.koppla.de
+docs: null
+docs_note: koppla publishes no public authentication documentation; the API is an
+  Enterprise contract feature.
+summary:
+  types:
+  - bearer
+  api_key_in: []
+  oauth2_flows: []
+  spec_declared: false
+  spec_note: 'GraphQL has no securitySchemes construct, so the auth model here is
+    derived from observed responses and the published web client, not from a formal
+    declaration.'
+schemes:
+- name: bearer
+  type: http
+  scheme: bearer
+  enforced: true
+  evidence: 'POST https://api.koppla.de/api/graphql/v1 with {"query":"{ownUser{id}}"}
+    and no credentials returns errors[0].extensions.code = UNAUTHENTICATED with
+    message "Invalid Authentication".'
+  sources:
+  - graphql/koppla-graphql-introspection.json
+identity_provider:
+  name: WorkOS
+  role: authentication / SSO for the koppla web application
+  evidence: 'https://my.koppla.de/sign_in loads
+    /assets/workosAuthenticationService-CqIsie4P.js alongside
+    useAuthenticationService-*.js.'
+  confidence: high
+  caveat: Inferred from the public web client bundle; koppla does not publish this.
+sso:
+  advertised: true
+  source: https://security.koppla.de/
+  detail: Single-Sign-On (SSO) is listed as an Access Control capability on the koppla
+    trust center.
+access_control:
+  model: role-based
+  advertised: Role-Based Access Control (koppla trust center, Product Security)
+  schema_roles:
+    enum: MembershipRole
+    values:
+    - ADMIN
+    - CONTROLLER
+    - MEMBER
+  tenancy: 'Multi-tenant. Many root queries require a tenant: ID! argument (for
+    example projects(tenant: ID!)), and organizationalUnit / membership types scope
+    access within a tenant.'
+  credential_management: listed as an App Security control on the koppla trust center
+introspection:
+  enabled: true
+  authenticated: false
+  note: 'GraphQL schema introspection is answered without credentials on the
+    production endpoint, which is how this repo captured the schema. Data access is
+    correctly gated - only the schema shape is exposed. Disabling production
+    introspection (or gating it behind auth) is the conventional hardening choice;
+    recorded here as an observation, not a vulnerability report.'
+hosts:
+- host: api.koppla.de
+  role: GraphQL API
+  gateway: AWS API Gateway
+  unauthenticated_response: '{"message":"Missing Authentication Token"} (HTTP 403) on
+    non-GraphQL paths'
+- host: api-v2.koppla.de
+  role: REST API (referenced by web client config and by in-schema deprecation notes)
+  reachable_unauthenticated: false
+- host: bulk.koppla.de
+  role: bulk endpoint (/v1)
+  unauthenticated_response: HTTP 403
+- host: rtc.koppla.de
+  role: realtime websocket (wss)

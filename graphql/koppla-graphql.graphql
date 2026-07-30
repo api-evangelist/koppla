@@ -1,0 +1,2905 @@
+# koppla GraphQL API - schema (SDL)
+# generated: 2026-07-19
+# method: searched
+# source: https://api.koppla.de/api/graphql/v1 (GraphQL introspection, publicly enabled)
+# note: rendered from one standard introspection query; no customer data was accessed.
+
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+enum MembershipRole {
+  ADMIN
+  CONTROLLER
+  MEMBER
+}
+
+enum NodeLifecycleEvent {
+  Create
+  Update
+  Delete
+}
+
+enum OrderProperty {
+  Name
+  StartAt
+  FinishAt
+  Progress
+  Status
+  CalendarId
+  AreaId
+  TenantTradeVariationId
+  SubcontractorId
+  TenantId
+  Timezone
+  TradeSequenceInstanceId
+}
+
+enum OrderStatusReportProperty {
+  Status
+  Reason
+  Progress
+  Comment
+}
+
+enum ProjectContributorGroupType {
+  INTERNAL
+  EXTERNAL
+}
+
+enum ProjectImportStrategy {
+  BUILDING
+  ENGINEERING
+  BRIDGE
+  STREET
+  OTHER
+}
+
+enum ProjectPermission {
+  VIEWER
+  EDITOR
+  PROGRESS_REPORTER
+}
+
+input AddUserDeviceTokenInput {
+  clientMutationId: String
+  token: String!
+}
+
+input AddressInput {
+  street: String
+  street2: String
+  postalCode: String
+  city: String
+  countryCode: String
+}
+
+input BaseUpdateProjectMessageStatusInput {
+  messageId: ID!
+  timestamp: DateTime!
+  status: String!
+}
+
+input CreateAttachmentInput {
+  clientMutationId: String
+  mimetype: String!
+  filesize: Int!
+  filename: String!
+  id: ID
+  timestamp: DateTime!
+}
+
+input CreateCustomScheduleViewInput {
+  clientMutationId: String
+  name: String!
+  icon: String!
+  position: Int!
+  project: ID!
+  content: CustomScheduleViewContentInput!
+}
+
+input CreateExternalLinkInput {
+  clientMutationId: String
+  id: ID!
+  url: String!
+  title: String
+  attachment: ExternalLinkAttachment
+}
+
+input CreateMembershipInput {
+  clientMutationId: String
+  tenant: ID!
+  userEmail: String!
+  role: MembershipRole!
+  organizationalUnitId: ID
+}
+
+input CreateMembershipInputV2 {
+  clientMutationId: String
+  isAdmin: Boolean!
+  isFitter: Boolean
+  isMonitor: Boolean
+  color: String
+  tenant: ID!
+  userEmail: String!
+}
+
+input CreateOrderDocumentInput {
+  clientMutationId: String
+  mimetype: String!
+  filesize: Int!
+  filename: String!
+  order: ID!
+}
+
+input CreateOrderPhotoInput {
+  clientMutationId: String
+  comment: String
+  orderTask: ID
+  id: ID
+  order: ID
+  content: Upload
+  createdAt: DateTime
+}
+
+input CreateOrderPhotoInputV2 {
+  clientMutationId: String
+  mimetype: String!
+  filesize: Int!
+  filename: String!
+  order: ID
+  id: ID
+  comment: String
+  createdAt: DateTime
+}
+
+input CreateOrderStatusReportInput {
+  clientMutationId: String
+  orderId: ID!
+  status: String!
+  reason: String
+  comment: String
+  reportedAt: DateTime!
+  progress: Int
+  id: ID
+}
+
+input CreateOrderStatusReportsInput {
+  clientMutationId: String
+  statusReports: [CreateOrderStatusReportInput!]!
+}
+
+input CreateOrganizationalUnitInput {
+  clientMutationId: String
+  id: ID
+  tenantId: ID!
+  name: String!
+}
+
+input CreateProjectAlternativeInput {
+  clientMutationId: String
+  project: ID!
+  projectAlternative: ID
+  name: String!
+  description: String
+}
+
+input CreateProjectContributorGroupInput {
+  clientMutationId: String
+  project: ID!
+  permission: ProjectPermission!
+  name: String!
+  tenant: ID
+  tradeAssignments: [ProjectContributorGroupTradeInput!]!
+  workerThreshold: Int
+}
+
+input CreateProjectContributorGroupMembershipInput {
+  clientMutationId: String
+  contributorGroup: ID!
+  permission: ProjectPermission
+  user: ID
+  newUser: NewUserInput
+}
+
+input CreateProjectInput {
+  clientMutationId: String
+  name: String!
+  internalId: String
+  shorthandSymbol: String
+  street: String
+  street2: String
+  postalCode: String
+  city: String
+  country: String
+  image: Upload
+  address: AddressInput
+  beginAt: Date
+  endAt: Date
+  workerThreshold: Int
+  tenant: ID!
+  timeZone: String
+  lifecycleStatus: String = "TEST"
+  organizationalUnitId: ID
+}
+
+input CreateProjectStructureTemplateInput {
+  clientMutationId: String
+  tenant: ID!
+  name: String!
+  description: String
+  sections: [WBSSectionInput!]!
+}
+
+input CreateProjectTemplateInput {
+  clientMutationId: String
+  project: ID
+  projectTemplate: ID
+  name: String!
+  description: String
+}
+
+input CreateProjectTradeVariationInput {
+  clientMutationId: String
+  project: ID!
+  name: String!
+  color: String!
+}
+
+input CreateProjectVersionInput {
+  clientMutationId: String
+  project: ID!
+  name: String!
+}
+
+input CreateTenantTradeVariationInput {
+  clientMutationId: String
+  name: String!
+  nameAbbreviation: String
+  color: String = "#ff0000"
+  tenant: ID!
+}
+
+input CreateTicketAttachmentInput {
+  clientMutationId: String
+  ticket: ID!
+  attachment: ID!
+  timestamp: DateTime!
+}
+
+input CreateTicketExportInput {
+  clientMutationId: String
+  tickets: [ID!]!
+  title: String
+  template: ID
+  comment: String
+}
+
+input CreateTicketInput {
+  clientMutationId: String
+  extendedDeadline: DateTime
+  cost: Int
+  timestamp: DateTime!
+  tenantTradeVariation: ID
+  type: String
+  description: String
+  responsibleUser: ID
+  deadline: DateTime
+  subcontractor: ID
+  contributorGroup: ID
+  id: ID
+  project: ID!
+  order: ID
+  attachments: [ID!]
+  links: [CreateTicketLinkInput!]
+  title: String!
+  status: String
+}
+
+input CreateTicketLinkInput {
+  clientMutationId: String
+  id: ID!
+  url: String!
+  title: String
+}
+
+input CreateTicketStatusUpdateAttachmentInput {
+  clientMutationId: String
+  statusUpdate: ID!
+  attachment: ID!
+  timestamp: DateTime!
+}
+
+input CreateTicketStatusUpdateInput {
+  clientMutationId: String
+  description: String
+  timestamp: DateTime!
+  ticket: ID!
+  status: String!
+  attachments: [ID!]!
+  id: ID
+}
+
+input CreateTicketStatusUpdatesInput {
+  statusUpdates: [CreateTicketStatusUpdateInput!]!
+}
+
+input CreateTradeSequenceTemplateFromSequenceInput {
+  clientMutationId: String
+  tradeSequence: ID!
+  name: String!
+}
+
+input CreateTradeSequenceTemplateInput {
+  clientMutationId: String
+  name: String!
+  defaultDuration: Int = 7200
+  activities: [TradeSequenceActivityInput!]!
+  dependencies: [TradeSequenceActivityDependencyInput!]
+  id: ID
+  tenant: ID!
+}
+
+input CustomScheduleViewContentInput {
+  wbsSections: [ID!]!
+  tenantTradeVariations: [ID!]!
+  contributorGroups: [ID!]!
+  eventColorType: String!
+  range: CustomScheduleViewContentRangeInput
+  hideDependencies: Boolean = false
+  hideWeekends: Boolean = false
+  showWorkerCurve: Boolean = false
+  orderStatuses: [String!] = []
+  milestoneStatuses: [String!] = []
+}
+
+input CustomScheduleViewContentRangeInput {
+  absolute: TimePeriod
+  relative: RelativeCustomScheduleViewContentRangeInput
+}
+
+input DeleteCustomScheduleViewInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteExternalLinkInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteMembershipInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteOrderDocumentInput {
+  clientMutationId: String
+  id: ID!
+  order: ID
+}
+
+input DeleteOrderPhotoInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteOrderTaskInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteOrganizationalUnitInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteProjectContributorGroupInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteProjectContributorGroupMembershipInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteProjectStructureTemplateInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteProjectTemplateInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteProjectVersionInput {
+  clientMutationId: String
+  version: ID!
+}
+
+input DeleteTenantTradeVariationInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteTicketAttachmentInput {
+  clientMutationId: String
+  ticket: ID!
+  attachment: ID!
+  timestamp: DateTime!
+}
+
+input DeleteTicketInput {
+  clientMutationId: String
+  id: ID!
+  timestamp: DateTime!
+}
+
+input DeleteTicketStatusUpdateAttachmentInput {
+  clientMutationId: String
+  statusUpdate: ID!
+  attachment: ID!
+  timestamp: DateTime!
+}
+
+input DeleteTicketStatusUpdateInput {
+  clientMutationId: String
+  id: ID!
+  timestamp: DateTime!
+}
+
+input DeleteTicketsInput {
+  clientMutationId: String
+  timestamp: DateTime!
+  tickets: [ID!]!
+}
+
+input DeleteTradeSequenceTemplateInput {
+  clientMutationId: String
+  id: ID!
+}
+
+input DeleteTradeVariationInput {
+  clientMutationId: String
+  id: ID!
+  replacementTradeVariation: ID
+}
+
+input DryingBreakInput {
+  duration: Int!
+  name: String
+}
+
+input EmailProviderInput {
+  password: String!
+}
+
+input ExportProjectFilter {
+  wbsSections: [ID!]
+  excludeWbsSections: [ID!]
+  contributorGroups: [ID!]
+  tenantTradeVariations: [ID!]
+  period: TimePeriod
+}
+
+input ExportProjectInput {
+  project: ID!
+  format: String!
+  filter: ExportProjectFilter
+  options: ExportProjectOptionsInput
+}
+
+input ExportProjectOptionsInput {
+  groupByTradeSequenceInstances: Boolean
+  showMilestoneSummarySection: Boolean
+  timeZone: String
+}
+
+input ExportProjectPhotosInput {
+  clientMutationId: String
+  filter: ProjectPhotoFilter!
+}
+
+input ExternalLinkAttachment {
+  order: ID
+  ticket: ID
+}
+
+input FileUploadInput {
+  clientMutationId: String
+  mimetype: String!
+  filesize: Int!
+  filename: String!
+}
+
+input MicrosoftProviderInput {
+  photoUrl: String
+}
+
+input NewUserInput {
+  email: String!
+}
+
+input OrderTaskTemplateInputWithID {
+  clientMutationId: String
+  name: String!
+  description: String
+  sequenceNumber: Int!
+  id: ID
+}
+
+input PeriodConstraint {
+  value: DateTime!
+  condition: String!
+  property: String!
+}
+
+input PhotoInput {
+  clientMutationId: String
+  comment: String
+  orderTask: ID
+}
+
+input ProjectContributorGroupTradeInput {
+  isDefaultContributorGroup: Boolean!
+  tenantTradeVariation: ID!
+}
+
+input ProjectPhotoFilter {
+  project: ID!
+  period: TimePeriod
+  wbsSections: [ID!]
+  contributorGroups: [ID!]
+  tenantTradeVariations: [ID!]
+  createdBy: ID
+}
+
+input RegisterUserInput {
+  clientMutationId: String
+  name: UserName!
+  languageCode: String = "de"
+  invitationToken: String!
+  timezone: String!
+  emailProvider: EmailProviderInput
+  microsoftProvider: MicrosoftProviderInput
+  image: Upload
+}
+
+input RelativeCustomScheduleViewContentRangeInput {
+  last: TimeRangeInput!
+  next: TimeRangeInput!
+}
+
+input RemoveUserDeviceTokenInput {
+  clientMutationId: String
+  token: String!
+}
+
+input RenameProjectVersionInput {
+  clientMutationId: String
+  version: ID!
+  name: String
+}
+
+input ResendUserInvitationInput {
+  clientMutationId: String
+  membership: ID!
+}
+
+input SetOrganizationalUnitMembershipsInput {
+  clientMutationId: String
+  tenantId: ID!
+  userId: ID!
+  role: MembershipRole!
+  organizationalUnitIds: [ID!]!
+}
+
+input SetOrganizationalUnitProjectsInput {
+  clientMutationId: String
+  organizationalUnitId: ID!
+  projectIds: [ID!]!
+}
+
+input SetProjectBasePlanInput {
+  clientMutationId: String
+  project: ID!
+  name: String!
+  projectVersion: ID
+}
+
+input StartProjectScheduleImportInput {
+  clientMutationId: String
+  fileInput: FileUploadInput!
+  project: ID!
+  strategy: ProjectImportStrategy = BUILDING
+  customStrategy: String
+}
+
+input TimePeriod {
+  from: DateTime!
+  to: DateTime!
+}
+
+input TimeRangeInput {
+  amount: Int!
+  unit: String!
+}
+
+input TradeSequenceActivityDependencyInput {
+  clientMutationId: String
+  lagInMinutes: Int!
+  bufferInMinutes: Int = 0
+  lagViolationInMinutes: Int
+  type: String!
+  useDryingBreak: Boolean = false
+  id: ID
+  fromActivity: ID!
+  toActivity: ID!
+}
+
+input TradeSequenceActivityInput {
+  id: ID!
+  name: String!
+  offset: Int = -1
+  duration: Int!
+  dryingBreak: DryingBreakInput
+  tenantTradeVariation: ID!
+  estimatedWorkers: Int
+  tasks: [OrderTaskTemplateInputWithID!]
+}
+
+input UpdateCustomScheduleViewInput {
+  clientMutationId: String
+  id: ID!
+  name: String
+  icon: String
+  position: Int
+  content: CustomScheduleViewContentInput
+}
+
+input UpdateExternalLinkInput {
+  clientMutationId: String
+  id: ID!
+  url: String
+  title: String
+}
+
+input UpdateMembershipInput {
+  clientMutationId: String
+  id: ID!
+  role: MembershipRole!
+}
+
+input UpdateMembershipInputV2 {
+  clientMutationId: String
+  isAdmin: Boolean!
+  isFitter: Boolean
+  isMonitor: Boolean
+  color: String
+  id: ID!
+}
+
+input UpdateOrderPhotoInput {
+  clientMutationId: String
+  comment: String
+  orderTask: ID
+  id: ID!
+  input: PhotoInput
+}
+
+input UpdateOrderTaskStatusAttributes {
+  completedAt: DateTime
+  comment: String
+}
+
+input UpdateOrderTaskStatusInput {
+  clientMutationId: String
+  id: ID!
+  input: UpdateOrderTaskStatusAttributes
+  completedAt: DateTime
+  comment: String
+}
+
+input UpdateOrganizationalUnitInput {
+  clientMutationId: String
+  id: ID!
+  name: String!
+}
+
+input UpdateProjectAlternativeInput {
+  clientMutationId: String
+  id: ID!
+  name: String!
+  description: String
+}
+
+input UpdateProjectContributorGroupInput {
+  clientMutationId: String
+  id: ID!
+  permission: ProjectPermission
+  name: String
+  tradeAssignments: [ProjectContributorGroupTradeInput!]
+  workerThreshold: Int
+}
+
+input UpdateProjectContributorGroupMembershipInput {
+  clientMutationId: String
+  id: ID!
+  permission: ProjectPermission
+}
+
+input UpdateProjectInput {
+  clientMutationId: String
+  name: String!
+  internalId: String
+  shorthandSymbol: String
+  street: String
+  street2: String
+  postalCode: String
+  city: String
+  country: String
+  image: Upload
+  address: AddressInput
+  beginAt: Date
+  endAt: Date
+  workerThreshold: Int
+  id: ID!
+  hourlyPlanningEnabled: Boolean
+  status: String
+  organizationalUnitId: ID
+}
+
+input UpdateProjectMessageStatusInputs {
+  clientMutationId: String
+  statuses: [BaseUpdateProjectMessageStatusInput!]!
+}
+
+input UpdateProjectStructureTemplateInput {
+  clientMutationId: String
+  id: ID!
+  name: String
+  description: String
+  sections: [WBSSectionInput!]
+}
+
+input UpdateProjectTemplateInput {
+  clientMutationId: String
+  id: ID!
+  name: String
+  description: String
+}
+
+input UpdateTenantInput {
+  clientMutationId: String
+  id: ID!
+  name: String
+  image: Upload
+  timezone: String
+  address: AddressInput
+}
+
+input UpdateTicketInput {
+  clientMutationId: String
+  extendedDeadline: DateTime
+  cost: Int
+  timestamp: DateTime!
+  tenantTradeVariation: ID
+  type: String
+  description: String
+  responsibleUser: ID
+  deadline: DateTime
+  subcontractor: ID
+  contributorGroup: ID
+  id: ID!
+  title: String
+  status: String
+}
+
+input UpdateTicketStatusUpdateInput {
+  clientMutationId: String
+  description: String
+  timestamp: DateTime!
+  id: ID!
+}
+
+input UpdateTicketsInput {
+  tickets: [UpdateTicketInput!]!
+}
+
+input UpdateTradeSequenceTemplateInput {
+  clientMutationId: String
+  name: String!
+  defaultDuration: Int = 7200
+  activities: [TradeSequenceActivityInput!]!
+  dependencies: [TradeSequenceActivityDependencyInput!]
+  id: ID!
+}
+
+input UpdateTradeVariationInput {
+  clientMutationId: String
+  id: ID!
+  name: String!
+  color: String!
+}
+
+input UpdateUserInput {
+  clientMutationId: String
+  mobileNumber: String
+  landlineNumber: String
+  image: Upload
+  languageCode: String
+  firstName: String
+  lastName: String
+  timezone: String
+}
+
+input UserName {
+  firstName: String!
+  lastName: String!
+}
+
+input WBSSectionInput {
+  id: ID!
+  parentId: ID
+  name: String!
+  position: Int!
+}
+
+interface Node {
+  id: ID!
+}
+
+interface ProjectMessageNode {
+  id: ID!
+  causedBy: UserNode
+  timestamp: DateTime!
+  createdAt: DateTime!
+  causedByTenant: TenantNode @deprecated(reason: "Contributor groups")
+  causedByContributorGroup: ProjectContributorGroupNode
+  status: String!
+}
+
+interface ProjectParticipantNode {
+  id: ID!
+  tenant: TenantNode!
+  contacts: ProjectSubcontractorWorkerNodeConnection!
+}
+
+interface TicketChangeNode {
+  id: ID!
+  ticket: TicketNode!
+  user: UserNode!
+  timestamp: DateTime!
+  createdByTenant: TenantNode
+}
+
+type AddUserDeviceTokenPayload {
+  clientMutationId: String
+  user: UserNode
+}
+
+type AddressNode {
+  street: String
+  street2: String
+  postalCode: String
+  city: String
+  country: String
+}
+
+type AsyncProjectExportResult {
+  exportId: ID!
+}
+
+type AsyncTaskPayload {
+  taskId: String!
+}
+
+type AttachmentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [AttachmentNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type AttachmentNodeEdge {
+  node: AttachmentNode!
+  cursor: String!
+}
+
+type CalendarExceptionNode implements Node {
+  id: ID!
+  name: String
+  startAt: Date!
+  finishAt: Date!
+  isWorkingDay: Boolean!
+  workingTimes: WorkingTimeNodeConnection! @deprecated(reason: "Use 'workingTimesV2'")
+  workingTimesV2: [WorkingTimeNode!]!
+}
+
+type CalendarExceptionNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CalendarExceptionNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type CalendarExceptionNodeEdge {
+  node: CalendarExceptionNode!
+  cursor: String!
+}
+
+type CalendarNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  workingDays: WorkingDayNodeConnection! @deprecated(reason: "Use 'workingDaysV2'")
+  exceptions: CalendarExceptionNodeConnection! @deprecated(reason: "Use 'exceptionsV2'")
+  workingDaysV2: [WorkingDayNode!]!
+  exceptionsV2: [CalendarExceptionNode!]!
+  name: String!
+  minutesPerDay: Int!
+  isDefault: Boolean!
+  isDeletable: Boolean!
+}
+
+type CalendarNodeConnection {
+  pageInfo: PageInfo!
+  edges: [CalendarNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type CalendarNodeEdge {
+  node: CalendarNode!
+  cursor: String!
+}
+
+type ConstructionManagementNode implements ProjectParticipantNode & Node {
+  id: ID!
+  tenant: TenantNode!
+  contacts: ProjectSubcontractorWorkerNodeConnection!
+}
+
+type CreateAttachmentPayload {
+  clientMutationId: String
+  url: String!
+  fields: [Pair!]!
+  expiresAt: DateTime!
+  node: AttachmentNode!
+}
+
+type CreateCustomScheduleViewPayload {
+  clientMutationId: String
+  customScheduleView: CustomScheduleViewNode
+}
+
+type CreateExternalLinkPayload {
+  clientMutationId: String
+  externalLink: ExternalLinkNode
+}
+
+type CreateMembershipPayload {
+  clientMutationId: String
+  membership: MembershipNode
+}
+
+type CreateMembershipV2Payload {
+  clientMutationId: String
+  membership: MembershipNode
+}
+
+type CreateOrderDocumentPayload {
+  clientMutationId: String
+  url: String!
+  fields: [Pair!]!
+  expiresAt: DateTime!
+  orderDocument: OrderDocumentNode
+}
+
+type CreateOrderPhotoPayload {
+  clientMutationId: String
+  photo: OrderPhotoNode
+}
+
+type CreateOrderPhotoV2Payload {
+  clientMutationId: String
+  url: String!
+  fields: [Pair!]!
+  expiresAt: DateTime!
+  photo: OrderPhotoNode!
+}
+
+type CreateOrderStatusReportPayload {
+  clientMutationId: String
+  orderStatusReport: OrderStatusReportNode
+}
+
+type CreateOrderStatusReportsPayload {
+  clientMutationId: String
+  orderStatusReports: [OrderStatusReportNode!]
+}
+
+type CreateOrganizationalUnitPayload {
+  clientMutationId: String
+  organizationalUnit: OrganizationalUnitNode
+}
+
+type CreateProjectAlternativePayload {
+  clientMutationId: String
+  projectAlternative: ProjectAlternativeNode
+}
+
+type CreateProjectContributorGroupMembershipPayload {
+  clientMutationId: String
+  projectContributorGroupMembership: ProjectContributorGroupMembershipNode
+}
+
+type CreateProjectContributorGroupPayload {
+  clientMutationId: String
+  projectContributorGroup: ProjectContributorGroupNode
+}
+
+type CreateProjectPayload {
+  clientMutationId: String
+  project: ProjectNode
+}
+
+type CreateProjectStructureTemplatePayload {
+  clientMutationId: String
+  projectStructureTemplate: ProjectStructureTemplateNode
+}
+
+type CreateProjectTradeVariationPayload {
+  clientMutationId: String
+  tradeVariation: TenantTradeVariationNode
+}
+
+type CreateProjectVersionPayload {
+  clientMutationId: String
+  version: ProjectVersionNode
+}
+
+type CreateTenantTradeVariationPayload {
+  clientMutationId: String
+  tenantTradeVariation: TenantTradeVariationNode
+}
+
+type CreateTicketAttachmentPayload {
+  clientMutationId: String
+  success: Boolean!
+}
+
+type CreateTicketExportPayload {
+  clientMutationId: String
+  ticketExport: TicketExportNode
+}
+
+type CreateTicketPayload {
+  clientMutationId: String
+  ticket: TicketNode
+}
+
+type CreateTicketStatusUpdateAttachmentPayload {
+  clientMutationId: String
+  success: Boolean!
+}
+
+type CreateTicketStatusUpdatePayload {
+  clientMutationId: String
+  ticketStatusUpdate: TicketStatusUpdateNode
+}
+
+type CreateTradeSequenceTemplateFromSequencePayload {
+  clientMutationId: String
+  tradeSequenceTemplate: TradeSequenceTemplateNode
+}
+
+type CreateTradeSequenceTemplatePayload {
+  clientMutationId: String
+  tradeSequenceTemplate: TradeSequenceTemplateNode
+}
+
+type CustomScheduleViewContent {
+  wbsSections: [ID!]!
+  tenantTradeVariations: [ID!]!
+  contributorGroups: [ID!]!
+  eventColorType: String!
+  range: CustomScheduleViewContentRange
+  hideWeekends: Boolean!
+  hideDependencies: Boolean!
+  showWorkerCurve: Boolean!
+  orderStatuses: [String!]!
+  milestoneStatuses: [String!]!
+}
+
+type CustomScheduleViewContentRange {
+  absolute: TimePeriodObject
+  relative: RelativeCustomScheduleViewContentRange
+}
+
+type CustomScheduleViewNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  icon: String!
+  type: String!
+  position: Int!
+  content: CustomScheduleViewContent!
+}
+
+type DeleteCustomScheduleViewPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteExternalLinkPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteMembershipPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteOrderDocumentPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteOrderPhotoPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteOrderTaskPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteOrganizationalUnitPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteProjectContributorGroupMembershipPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteProjectContributorGroupPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteProjectStructureTemplatePayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteProjectTemplatePayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteProjectVersionPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteTenantTradeVariationPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteTicketAttachmentPayload {
+  clientMutationId: String
+  success: Boolean!
+}
+
+type DeleteTicketPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteTicketStatusUpdateAttachmentPayload {
+  clientMutationId: String
+  success: Boolean!
+}
+
+type DeleteTicketStatusUpdatePayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteTradeSequenceTemplatePayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DeleteTradeVariationPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type DocumentAttachmentNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  file: FileContent!
+  fileSize: Int!
+  fileExtension: String!
+}
+
+type DryingBreak {
+  name: String
+  duration: Int!
+}
+
+type ErrorDelayReasons {
+  delays: [ReportProblemReason!]!
+  errors: [ReportProblemReason!]!
+}
+
+type ExportProjectPhotosPayload {
+  clientMutationId: String
+}
+
+type ExternalLinkHistoryData {
+  url: String!
+  title: String
+}
+
+type ExternalLinkHistoryEvent {
+  before: ExternalLinkHistoryData
+  after: ExternalLinkHistoryData
+  type: NodeLifecycleEvent!
+  linkId: ID!
+}
+
+type ExternalLinkNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  url: String!
+  title: String
+}
+
+type FileContent {
+  url: String!
+  downloadUrl: String!
+}
+
+type FileUploadResultPayload {
+  clientMutationId: String
+  url: String!
+  fields: [Pair!]!
+  expiresAt: DateTime!
+}
+
+type LeanProjectPauseNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  start: DateTime!
+  end: DateTime!
+  name: String
+  description: String
+  nonWorking: Boolean!
+  icon: String
+  importKey: String
+  project: ProjectNode
+}
+
+type LeanProjectPauseNodeConnection {
+  pageInfo: PageInfo!
+  edges: [LeanProjectPauseNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type LeanProjectPauseNodeEdge {
+  node: LeanProjectPauseNode!
+  cursor: String!
+}
+
+type MembershipNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  isAdmin: Boolean! @deprecated(reason: "Use role field instead. isAdmin is computed as role === ADMIN && organizationalUnit === null")
+  role: MembershipRole!
+  isFitter: Boolean! @deprecated(reason: "Standard tool")
+  isMonitor: Boolean! @deprecated(reason: "Standard tool")
+  isPersonnelManager: Boolean! @deprecated(reason: "Standard tool")
+  acceptedAt: DateTime
+  isActive: Boolean!
+  color: String
+  tenant: TenantNode!
+  user: UserNode!
+  organizationalUnit: OrganizationalUnitNode
+}
+
+type MembershipNodeConnection {
+  pageInfo: PageInfo!
+  edges: [MembershipNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type MembershipNodeEdge {
+  node: MembershipNode!
+  cursor: String!
+}
+
+type Mutation {
+  createProject(input: CreateProjectInput!): CreateProjectPayload
+  updateProject(input: UpdateProjectInput!): UpdateProjectPayload
+  setProjectBasePlan(input: SetProjectBasePlanInput!): SetProjectBasePlanPayload
+  createCustomScheduleView(input: CreateCustomScheduleViewInput!): CreateCustomScheduleViewPayload
+  updateCustomScheduleView(input: UpdateCustomScheduleViewInput!): UpdateCustomScheduleViewPayload
+  deleteCustomScheduleView(input: DeleteCustomScheduleViewInput!): DeleteCustomScheduleViewPayload
+  createProjectAlternative(input: CreateProjectAlternativeInput!): CreateProjectAlternativePayload
+  updateProjectAlternative(input: UpdateProjectAlternativeInput!): UpdateProjectAlternativePayload
+  createProjectAlternativeAsync(input: CreateProjectAlternativeInput!): AsyncTaskPayload
+  createProjectContributorGroup(input: CreateProjectContributorGroupInput!): CreateProjectContributorGroupPayload
+  updateProjectContributorGroup(input: UpdateProjectContributorGroupInput!): UpdateProjectContributorGroupPayload
+  deleteProjectContributorGroup(input: DeleteProjectContributorGroupInput!): DeleteProjectContributorGroupPayload
+  createProjectContributorGroupMembership(input: CreateProjectContributorGroupMembershipInput!): CreateProjectContributorGroupMembershipPayload
+  updateProjectContributorGroupMembership(input: UpdateProjectContributorGroupMembershipInput!): UpdateProjectContributorGroupMembershipPayload
+  deleteProjectContributorGroupMembership(input: DeleteProjectContributorGroupMembershipInput!): DeleteProjectContributorGroupMembershipPayload
+  exportProject(input: ExportProjectInput!): ProjectExportResult
+  updateProjectMessageStatus(input: UpdateProjectMessageStatusInputs!): [ProjectMessageUnion!]
+  startProjectScheduleImport(input: StartProjectScheduleImportInput!): StartProjectScheduleImportPayload
+  createProjectTemplate(input: CreateProjectTemplateInput!): AsyncTaskPayload
+  updateProjectTemplate(input: UpdateProjectTemplateInput!): UpdateProjectTemplatePayload
+  deleteProjectTemplate(input: DeleteProjectTemplateInput!): DeleteProjectTemplatePayload
+  createVersion(input: CreateProjectVersionInput!): CreateProjectVersionPayload
+  renameVersion(input: RenameProjectVersionInput!): RenameProjectVersionPayload
+  deleteVersion(input: DeleteProjectVersionInput!): DeleteProjectVersionPayload
+  createTicket(input: CreateTicketInput!): CreateTicketPayload
+  updateTicket(input: UpdateTicketInput!): UpdateTicketPayload
+  updateTickets(input: UpdateTicketsInput!): TicketNodeConnection
+  deleteTicket(input: DeleteTicketInput!): DeleteTicketPayload
+  deleteTickets(input: DeleteTicketsInput!): DeleteTicketPayload
+  createTicketAttachment(input: CreateTicketAttachmentInput!): CreateTicketAttachmentPayload
+  deleteTicketAttachment(input: DeleteTicketAttachmentInput!): DeleteTicketAttachmentPayload
+  createTicketExport(input: CreateTicketExportInput!): CreateTicketExportPayload
+  createTicketStatusUpdate(input: CreateTicketStatusUpdateInput!): CreateTicketStatusUpdatePayload
+  createTicketStatusUpdates(input: CreateTicketStatusUpdatesInput!): TicketStatusUpdateNodeConnection
+  updateTicketStatusUpdate(input: UpdateTicketStatusUpdateInput!): UpdateTicketStatusUpdatePayload
+  deleteTicketStatusUpdate(input: DeleteTicketStatusUpdateInput!): DeleteTicketStatusUpdatePayload
+  createTicketStatusUpdateAttachment(input: CreateTicketStatusUpdateAttachmentInput!): CreateTicketStatusUpdateAttachmentPayload
+  deleteTicketStatusUpdateAttachment(input: DeleteTicketStatusUpdateAttachmentInput!): DeleteTicketStatusUpdateAttachmentPayload
+  createAttachment(input: CreateAttachmentInput!): CreateAttachmentPayload
+  createOrderDocument(input: CreateOrderDocumentInput!): CreateOrderDocumentPayload
+  deleteOrderDocument(input: DeleteOrderDocumentInput!): DeleteOrderDocumentPayload
+  createExternalLink(input: CreateExternalLinkInput!): CreateExternalLinkPayload
+  updateExternalLink(input: UpdateExternalLinkInput!): UpdateExternalLinkPayload
+  deleteExternalLink(input: DeleteExternalLinkInput!): DeleteExternalLinkPayload
+  createMembershipV2(input: CreateMembershipInputV2!): CreateMembershipV2Payload
+  updateMembershipV2(input: UpdateMembershipInputV2!): UpdateMembershipPayload
+  createMembership(input: CreateMembershipInput!): CreateMembershipPayload
+  updateMembership(input: UpdateMembershipInput!): UpdateMembershipPayload
+  deleteMembership(input: DeleteMembershipInput!): DeleteMembershipPayload
+  createOrderPhoto(input: CreateOrderPhotoInput!): CreateOrderPhotoPayload @deprecated(reason: "Use 'createOrderPhotoV2' for upload without size restrictions.")
+  createOrderPhotoV2(input: CreateOrderPhotoInputV2!): CreateOrderPhotoV2Payload
+  updateOrderPhoto(input: UpdateOrderPhotoInput!): UpdateOrderPhotoPayload
+  deleteOrderPhoto(input: DeleteOrderPhotoInput!): DeleteOrderPhotoPayload
+  exportProjectPhotos(input: ExportProjectPhotosInput!): ExportProjectPhotosPayload
+  createOrderStatusReport(input: CreateOrderStatusReportInput!): CreateOrderStatusReportPayload @deprecated(reason: "Use 'createOrderStatusReports'.")
+  createOrderStatusReports(input: CreateOrderStatusReportsInput!): CreateOrderStatusReportsPayload
+  updateOrderTaskStatus(input: UpdateOrderTaskStatusInput!): UpdateOrderTaskStatusPayload
+  deleteOrderTask(input: DeleteOrderTaskInput!): DeleteOrderTaskPayload
+  createOrganizationalUnit(input: CreateOrganizationalUnitInput!): CreateOrganizationalUnitPayload
+  updateOrganizationalUnit(input: UpdateOrganizationalUnitInput!): UpdateOrganizationalUnitPayload
+  deleteOrganizationalUnit(input: DeleteOrganizationalUnitInput!): DeleteOrganizationalUnitPayload
+  setOrganizationalUnitProjects(input: SetOrganizationalUnitProjectsInput!): SetOrganizationalUnitProjectsPayload
+  setOrganizationalUnitMemberships(input: SetOrganizationalUnitMembershipsInput!): SetOrganizationalUnitMembershipsPayload
+  createProjectStructureTemplate(input: CreateProjectStructureTemplateInput!): CreateProjectStructureTemplatePayload
+  updateProjectStructureTemplate(input: UpdateProjectStructureTemplateInput!): UpdateProjectStructureTemplatePayload
+  deleteProjectStructureTemplate(input: DeleteProjectStructureTemplateInput!): DeleteProjectStructureTemplatePayload
+  updateTenant(input: UpdateTenantInput!): UpdateTenantPayload @deprecated(reason: "Use REST API PATCH /tenants/:tenantId and PUT /tenants/:tenantId/image instead")
+  createTenantTradeVariation(input: CreateTenantTradeVariationInput!): CreateTenantTradeVariationPayload
+  deleteTenantTradeVariation(input: DeleteTenantTradeVariationInput!): DeleteTenantTradeVariationPayload @deprecated(reason: "Use 'deleteTradeVariation' instead.")
+  createProjectTradeVariation(input: CreateProjectTradeVariationInput!): CreateProjectTradeVariationPayload
+  updateTradeVariation(input: UpdateTradeVariationInput!): UpdateTradeVariationPayload
+  deleteTradeVariation(input: DeleteTradeVariationInput!): DeleteTradeVariationPayload
+  createTradeSequenceTemplate(input: CreateTradeSequenceTemplateInput!): CreateTradeSequenceTemplatePayload
+  createTradeSequenceTemplateFromSequence(input: CreateTradeSequenceTemplateFromSequenceInput!): CreateTradeSequenceTemplateFromSequencePayload
+  updateTradeSequenceTemplate(input: UpdateTradeSequenceTemplateInput!): UpdateTradeSequenceTemplatePayload
+  deleteTradeSequenceTemplate(input: DeleteTradeSequenceTemplateInput!): DeleteTradeSequenceTemplatePayload
+  registerUser(input: RegisterUserInput!): RegisterUserPayload
+  updateUser(input: UpdateUserInput!): UpdateUserPayload
+  addUserDeviceToken(input: AddUserDeviceTokenInput!): AddUserDeviceTokenPayload
+  resendUserInvitation(input: ResendUserInvitationInput!): ResendUserInvitationPayload
+  removeUserDeviceToken(input: RemoveUserDeviceTokenInput!): RemoveUserDeviceTokenPayload
+}
+
+type NullableField {
+  key: String!
+  value: String
+}
+
+type OrderChangeMessageNode implements ProjectMessageNode & Node {
+  id: ID!
+  causedBy: UserNode
+  timestamp: DateTime!
+  createdAt: DateTime!
+  causedByTenant: TenantNode
+  causedByContributorGroup: ProjectContributorGroupNode
+  status: String!
+  before: [OrderFieldValue!]
+  after: [OrderFieldValue!]
+}
+
+type OrderChangeNode {
+  id: ID!
+  deleted: Boolean!
+  order: OrderNode
+  changedAt: DateTime!
+}
+
+type OrderChangeNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderChangeNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderChangeNodeEdge {
+  node: OrderChangeNode!
+  cursor: String!
+}
+
+type OrderContactNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  name: String!
+  landlineNumber: String
+  mobileNumber: String
+  role: String
+  email: String
+  createdBy: UserNode
+  updatedBy: UserNode
+}
+
+type OrderDependencyNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  type: String!
+  lagInMinutes: Int!
+  bufferInMinutes: Int!
+  lagViolationInMinutes: Int
+  useDryingBreak: Boolean!
+  from: OrderDependencyUnion!
+  to: OrderDependencyUnion!
+}
+
+type OrderDependencyNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderDependencyNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderDependencyNodeEdge {
+  node: OrderDependencyNode!
+  cursor: String!
+}
+
+type OrderDocumentHistoryData {
+  file: FileContent!
+}
+
+type OrderDocumentHistoryEvent {
+  before: OrderDocumentHistoryData
+  after: OrderDocumentHistoryData
+  type: NodeLifecycleEvent!
+  documentId: ID!
+}
+
+type OrderDocumentNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  file: FileContent!
+  fileSize: Int!
+  fileExtension: String!
+}
+
+type OrderDocumentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderDocumentNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderDocumentNodeEdge {
+  node: OrderDocumentNode!
+  cursor: String!
+}
+
+type OrderFieldValue {
+  field: OrderProperty!
+  value: FieldValue
+}
+
+type OrderHistoryChangeEvent {
+  before: OrderHistoryData
+  after: OrderHistoryData
+  type: NodeLifecycleEvent!
+  orderId: ID!
+}
+
+type OrderHistoryData {
+  startAt: DateTime!
+  finishAt: DateTime!
+  name: String!
+  estimatedWorkers: Int
+  subcontractor: TenantNode @deprecated(reason: "Contributor groups")
+  contributorGroup: ProjectContributorGroupNode
+  tenantTradeVariation: TenantTradeVariationNode
+  tradeSequenceActivity: TradeSequenceActivityNode
+  calendar: CalendarNode
+  wbsSection: WBSSectionNode
+  isFixed: Boolean!
+  dryingBreak: DryingBreak
+}
+
+type OrderHistoryEntryNode implements Node {
+  id: ID!
+  events: [OrderHistoryUnion!]!
+  user: UserNode
+  userTenant: TenantNode
+  userContributorGroup: ProjectContributorGroupNode
+  timestamp: DateTime!
+}
+
+type OrderHistoryEntryNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderHistoryEntryNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderHistoryEntryNodeEdge {
+  node: OrderHistoryEntryNode!
+  cursor: String!
+}
+
+type OrderNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  legacyId: ID @deprecated(reason: "Part of standard tools.")
+  internalId: String @deprecated(reason: "Part of standard tools.")
+  name: String!
+  estimatedWorkers: Int
+  description: String @deprecated(reason: "Part of standard tools.")
+  timezone: String
+  startAt: DateTime
+  finishAt: DateTime
+  isFixed: Boolean!
+  startedAt: DateTime
+  finishedAt: DateTime
+  status: String!
+  progress: Int!
+  dryingBreak: DryingBreak
+  calendar: CalendarNode!
+  tasks(before: String, after: String, first: Int, last: Int, orderBy: [String!]): OrderTaskNodeConnection!
+  documents(before: String, after: String, first: Int, last: Int, orderBy: [String!]): OrderDocumentNodeConnection!
+  project: ProjectNode!
+  photos(before: String, after: String, first: Int, last: Int): OrderPhotoNodeConnection!
+  latestStatusReport: OrderStatusReportNode
+  statusReports(before: String, after: String, first: Int, last: Int): OrderStatusReportNodeConnection!
+  subcontractor: TenantNode @deprecated(reason: "Contributor groups")
+  contributorGroup: ProjectContributorGroupNode
+  wbsSection: WBSSectionNode!
+  tenantTradeVariation: TenantTradeVariationNode!
+  tradeSequenceActivity: TradeSequenceActivityNode
+  tradeSequenceInstanceId: String
+  fromDependencies(before: String, after: String, first: Int, last: Int): OrderDependencyNodeConnection!
+  toDependencies(before: String, after: String, first: Int, last: Int): OrderDependencyNodeConnection!
+  tickets(before: String, after: String, first: Int, last: Int): TicketNodeConnection!
+  links(orderBy: [String!]): [ExternalLinkNode!]!
+}
+
+type OrderNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderNodeEdge {
+  node: OrderNode!
+  cursor: String!
+}
+
+type OrderPhotoHistoryData {
+  image: FileContent!
+  lowResImage: FileContent!
+  imageThumbnail: FileContent!
+  comment: String
+}
+
+type OrderPhotoHistoryEvent {
+  before: OrderPhotoHistoryData
+  after: OrderPhotoHistoryData
+  type: NodeLifecycleEvent!
+  photoId: ID!
+}
+
+type OrderPhotoNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  comment: String
+  image: FileContent!
+  lowResImage: FileContent
+  imageThumbnail: FileContent
+  order: OrderNode!
+  orderTask: OrderTaskNode
+  createdByTenant: TenantNode
+  createdByContributorGroup: ProjectContributorGroupNode
+}
+
+type OrderPhotoNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderPhotoNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderPhotoNodeEdge {
+  node: OrderPhotoNode!
+  cursor: String!
+}
+
+type OrderStatusReportFieldValue {
+  field: OrderStatusReportProperty!
+  value: FieldValue
+}
+
+type OrderStatusReportHistoryEvent {
+  reportId: ID!
+  status: String!
+  reason: String
+  progress: Int
+  comment: String
+}
+
+type OrderStatusReportMessageNode implements ProjectMessageNode & Node {
+  id: ID!
+  causedBy: UserNode
+  timestamp: DateTime!
+  createdAt: DateTime!
+  causedByTenant: TenantNode
+  causedByContributorGroup: ProjectContributorGroupNode
+  status: String!
+  order: OrderNode
+  before: [OrderStatusReportFieldValue!]
+  after: [OrderStatusReportFieldValue!]
+}
+
+type OrderStatusReportNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  status: String!
+  reason: String
+  comment: String
+  reportedAt: DateTime!
+  order: OrderNode!
+  createdByTenant: TenantNode
+  createdByContributorGroup: ProjectContributorGroupNode
+  progress: Int
+}
+
+type OrderStatusReportNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderStatusReportNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderStatusReportNodeEdge {
+  node: OrderStatusReportNode!
+  cursor: String!
+}
+
+type OrderTaskHistoryData {
+  name: String!
+  sequenceNumber: Int!
+  completedAt: DateTime
+}
+
+type OrderTaskHistoryEvent {
+  before: OrderTaskHistoryData
+  after: OrderTaskHistoryData
+  type: NodeLifecycleEvent!
+  taskId: ID!
+}
+
+type OrderTaskNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  description: String @deprecated(reason: "Part of standard tool removal.")
+  sequenceNumber: Int!
+  completedAt: DateTime
+  comment: String
+  template: OrderTaskTemplateNode
+}
+
+type OrderTaskNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderTaskNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderTaskNodeEdge {
+  node: OrderTaskNode!
+  cursor: String!
+}
+
+type OrderTaskTemplateNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  description: String
+  sequenceNumber: Int!
+}
+
+type OrderTaskTemplateNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrderTaskTemplateNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrderTaskTemplateNodeEdge {
+  node: OrderTaskTemplateNode!
+  cursor: String!
+}
+
+type OrganizationalUnitNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  tenant: TenantNode!
+  projects(before: String, after: String, first: Int, last: Int): ProjectNodeConnection!
+  memberships(before: String, after: String, first: Int, last: Int): MembershipNodeConnection!
+}
+
+type OrganizationalUnitNodeConnection {
+  pageInfo: PageInfo!
+  edges: [OrganizationalUnitNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type OrganizationalUnitNodeEdge {
+  node: OrganizationalUnitNode!
+  cursor: String!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Pair {
+  key: String!
+  value: String!
+}
+
+type PhotoAttachmentNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  comment: String
+  image: FileContent!
+  lowResImage: FileContent
+  imageThumbnail: FileContent
+}
+
+type ProjectAlternativeCreateTask {
+  id: String!
+  status: String!
+  projectAlternative: ProjectAlternativeNode
+}
+
+type ProjectAlternativeNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  projectQueryId: ID!
+  name: String!
+  description: String
+  liveScheduleTime: DateTime!
+}
+
+type ProjectAlternativeNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectAlternativeNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectAlternativeNodeEdge {
+  node: ProjectAlternativeNode!
+  cursor: String!
+}
+
+type ProjectBasePlanNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  basePlanTime: DateTime!
+  progress(contributorGroup: ID): Float!
+}
+
+type ProjectContributorGroupMembershipNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  permission: String!
+  user: UserNode!
+  contributorGroup: ProjectContributorGroupNode!
+}
+
+type ProjectContributorGroupMembershipNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectContributorGroupMembershipNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectContributorGroupMembershipNodeEdge {
+  node: ProjectContributorGroupMembershipNode!
+  cursor: String!
+}
+
+type ProjectContributorGroupNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  permission: ProjectPermission!
+  isTenantOwnerGroup: Boolean!
+  workerThreshold: Int
+  project: ProjectNode!
+  type: ProjectContributorGroupType!
+  tenantTradeVariationAssignments: [ProjectContributorGroupTradeAssignmentNode!]!
+  memberships: [ProjectContributorGroupMembershipNode!]!
+}
+
+type ProjectContributorGroupNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectContributorGroupNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectContributorGroupNodeEdge {
+  node: ProjectContributorGroupNode!
+  cursor: String!
+}
+
+type ProjectContributorGroupTradeAssignmentNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  isDefaultContributor: Boolean!
+  tenantTradeVariation: TenantTradeVariationNode!
+}
+
+type ProjectExportNode implements Node {
+  id: ID!
+  file: FileContent
+  status: String!
+}
+
+type ProjectMembershipNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  user: UserNode!
+  project: ProjectNode!
+  role: String! @deprecated(reason: "PPM: Use 'permission'.")
+  permission: String!
+  isContactPerson: Boolean!
+}
+
+type ProjectMembershipNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectMembershipNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectMembershipNodeEdge {
+  node: ProjectMembershipNode!
+  cursor: String!
+}
+
+type ProjectMessageUnionConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectMessageUnionEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectMessageUnionEdge {
+  node: ProjectMessageUnion!
+  cursor: String!
+}
+
+type ProjectMilestoneAcceptanceCriterionNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  sequenceNumber: Int!
+  completedAt: DateTime
+  completedBy: UserNode
+}
+
+type ProjectMilestoneNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  date: DateTime!
+  name: String!
+  color: String!
+  isFixed: Boolean!
+  isProjectEnd: Boolean!
+  wbsSection: WBSSectionNode
+  tenantTradeVariation: TenantTradeVariationNode
+  contributorGroup: ProjectContributorGroupNode
+  completedAt: DateTime
+  completedBy: UserNode
+  acceptanceCriteria: [ProjectMilestoneAcceptanceCriterionNode!]!
+}
+
+type ProjectMilestoneNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectMilestoneNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectMilestoneNodeEdge {
+  node: ProjectMilestoneNode!
+  cursor: String!
+}
+
+type ProjectNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  status: String! @deprecated(reason: "Use 'setupStatus'.")
+  setupStatus: String!
+  lifecycleStatus: String!
+  internalId: String
+  timeZone: String!
+  hourlyPlanningEnabled: Boolean!
+  completedAt: DateTime
+  end: Date
+  begin: Date
+  completed: Boolean!
+  imageUrl: String
+  shorthandSymbol: String
+  syncPriority: Float!
+  workerThreshold: Int
+  contractValue: Float
+  tenant: TenantNode!
+  memberships(before: String, after: String, first: Int, last: Int): ProjectMembershipNodeConnection! @deprecated(reason: "Contributor groups")
+  address: AddressNode!
+  basePlan: ProjectBasePlanNode
+  lastActivityAt: DateTime!
+  lastStatusChange: ProjectStatusChange
+  organizationalUnit: ProjectOrganizationalUnit
+  progress(contributorGroup: ID): Float!
+}
+
+type ProjectNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectNodeEdge {
+  node: ProjectNode!
+  cursor: String!
+}
+
+type ProjectOrganizationalUnit {
+  id: ID!
+  name: String!
+}
+
+type ProjectParticipantUnionConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectParticipantUnionEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectParticipantUnionEdge {
+  node: ProjectParticipantUnion!
+  cursor: String!
+}
+
+type ProjectStatusChange {
+  changedAt: DateTime!
+  changedBy: UserNode
+  previousStatus: String!
+}
+
+type ProjectStructureTemplateNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  description: String
+  isDefaultTemplate: Boolean!
+  wbsSections: [WBSSectionNode!]!
+}
+
+type ProjectSubcontractorNode implements ProjectParticipantNode & Node {
+  id: ID!
+  tenant: TenantNode!
+  contacts(before: String, after: String, first: Int, last: Int, orderBy: [String!]): ProjectSubcontractorWorkerNodeConnection!
+  project: ProjectNode!
+  tenantTradeVariations(before: String, after: String, first: Int, last: Int, orderBy: [String!]): TenantTradeVariationNodeConnection! @deprecated(reason: "We now support default subcontractor for a project's subcontractor. Use 'tenantTradeVariationAssignments'")
+  tenantTradeVariationAssignments(before: String, after: String, first: Int, last: Int, orderBy: [String!]): ProjectSubcontractorTenantTradeVariationAssignmentNodeConnection!
+  createdBy: UserNode
+  updatedBy: UserNode
+}
+
+type ProjectSubcontractorNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectSubcontractorNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectSubcontractorNodeEdge {
+  node: ProjectSubcontractorNode!
+  cursor: String!
+}
+
+type ProjectSubcontractorTenantTradeVariationAssignmentNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  isDefaultSubcontractor: Boolean!
+  tenantTradeVariation: TenantTradeVariationNode!
+}
+
+type ProjectSubcontractorTenantTradeVariationAssignmentNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectSubcontractorTenantTradeVariationAssignmentNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectSubcontractorTenantTradeVariationAssignmentNodeEdge {
+  node: ProjectSubcontractorTenantTradeVariationAssignmentNode!
+  cursor: String!
+}
+
+type ProjectSubcontractorWorkerNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  user: UserNode
+  contact: OrderContactNode @deprecated(reason: "No longer needed")
+  role: String
+  project: ProjectNode!
+  subcontractor: TenantNode!
+}
+
+type ProjectSubcontractorWorkerNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectSubcontractorWorkerNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectSubcontractorWorkerNodeEdge {
+  node: ProjectSubcontractorWorkerNode!
+  cursor: String!
+}
+
+type ProjectTemplateCreateTask {
+  id: String!
+  status: String!
+  template: ProjectTemplateNode
+}
+
+type ProjectTemplateNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  description: String
+  projectQueryId: ID!
+}
+
+type ProjectTemplateNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectTemplateNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectTemplateNodeEdge {
+  node: ProjectTemplateNode!
+  cursor: String!
+}
+
+type ProjectVersionNode implements Node {
+  id: ID!
+  timestamp: DateTime!
+  name: String
+  newChangesAvailable: Boolean!
+  lastChangedBy: UserNode
+  createdBy: UserNode
+  updatedBy: UserNode
+  isBasePlan: Boolean!
+  project: ProjectNode!
+}
+
+type ProjectVersionNodeConnection {
+  pageInfo: PageInfo!
+  edges: [ProjectVersionNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type ProjectVersionNodeEdge {
+  node: ProjectVersionNode!
+  cursor: String!
+}
+
+type Query {
+  project(id: ID!): ProjectNode @deprecated(reason: "Use GET /projects/:projectId on the REST API instead.")
+  projects(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID!, hasProjectMembership: Boolean = true, lifecycleStatusIn: [String!]): ProjectNodeConnection
+  userProjects(before: String, after: String, first: Int, last: Int, orderBy: [String!], lifecycleStatusIn: [String!]): ProjectNodeConnection
+  userScheduleViews(project: ID!): [CustomScheduleViewNode!]
+  orderHistory(before: String, after: String, first: Int, last: Int, orderId: ID!, timestamp: DateTime, orderBy: String = "ASC"): OrderHistoryEntryNodeConnection
+  projectAlternativeCreateTask(taskId: ID!): ProjectAlternativeCreateTask
+  projectAlternative(id: ID!): ProjectAlternativeNode
+  projectAlternatives(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): ProjectAlternativeNodeConnection
+  projectContributorGroupsSearch(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): ProjectContributorGroupNodeConnection
+  projectContributorGroup(id: ID!): ProjectContributorGroupNode
+  projectContributorGroups(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, type: ProjectContributorGroupType): ProjectContributorGroupNodeConnection
+  ownProjectContributorGroupMemberships(before: String, after: String, first: Int, last: Int, orderBy: [String!]): ProjectContributorGroupMembershipNodeConnection
+  projectContributorGroupMembership(id: ID!): ProjectContributorGroupMembershipNode
+  projectExport(id: ID!): ProjectExportNode
+  projectMessages(before: String, after: String, first: Int, last: Int, orderBy: [String!], projectId: ID!, createdAfter: DateTime, statusIn: [String!]): ProjectMessageUnionConnection
+  projectTemplateCreateTask(taskId: ID!): ProjectTemplateCreateTask
+  projectTemplate(id: ID!): ProjectTemplateNode
+  projectTemplates(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID!): ProjectTemplateNodeConnection
+  projectVersions(before: String, after: String, first: Int, last: Int, project: ID!, orderBy: String = "ASC"): ProjectVersionNodeConnection
+  projectVersion(version: ID!): ProjectVersionNode
+  tickets(before: String, after: String, first: Int, last: Int, orderBy: [String!], types: [String!], statusIn: [String!], tenantTradeVariations: [ID!], houseIds: [ID!], areaIds: [ID!], subcontractors: [ID!], responsibleUsers: [ID!], start: DateTime, end: DateTime, searchTerm: String, project: ID!): TicketNodeConnection @deprecated(reason: "Contributor groups")
+  ticketsV2(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, statusIn: [String!], contributorGroups: [ID!], searchTerm: String): TicketNodeConnection
+  ticket(id: ID!): TicketNode
+  modifiedTickets(before: String, after: String, first: Int, last: Int, modifiedAfter: DateTime!, project: ID!): TicketModifiedChangeNodeConnection
+  ticketChanges(before: String, after: String, first: Int, last: Int, startAt: DateTime, orderDescending: Boolean = true, ticket: ID!): TicketChangeUnionConnection
+  ticketExportTemplates(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID!): TicketExportTemplateNodeConnection
+  membership(id: ID!): MembershipNode
+  ownTenantMembership(tenant: ID!): MembershipNode
+  memberships(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID, isActive: Boolean): MembershipNodeConnection
+  calendar(id: ID!): CalendarNode
+  calendars(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): CalendarNodeConnection
+  orderDependency(id: ID!): OrderDependencyNode
+  projectOrderDependencies(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): OrderDependencyNodeConnection
+  order(id: ID!): OrderNode
+  orders(ids: [ID!]!): [OrderNode!]
+  userOrders(before: String, after: String, first: Int, last: Int, orderBy: [String!], inPeriodFrom: DateTime!, inPeriodTo: DateTime!, onlyInPeriod: Boolean = false, project: ID, overdue: Boolean): OrderNodeConnection
+  modifiedOrdersV2(before: String, after: String, first: Int, last: Int, modifiedAfter: DateTime!, project: ID!): OrderChangeNodeConnection
+  projectOrders(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, inPeriodFrom: DateTime, inPeriodTo: DateTime, contributorGroups: [ID!], houseIds: [ID!], constraints: [PeriodConstraint!], statusIn: [String!], tenantTradeVariationIds: [ID!], areaIds: [ID!], wbsSectionIds: [ID!]): OrderNodeConnection
+  orderPhoto(id: ID!): OrderPhotoNode
+  projectPhotos(before: String, after: String, first: Int, last: Int, orderBy: [String!], filter: ProjectPhotoFilter!): OrderPhotoNodeConnection
+  orderStatusReport(id: ID!): OrderStatusReportNode
+  projectOrderStatusReports(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): OrderStatusReportNodeConnection
+  errorDelayReasons(project: ID!): ErrorDelayReasons
+  errorDelayReasonsPerTrade(project: ID!): [TradeErrorDelayReasons!]
+  organizationalUnit(id: ID!): OrganizationalUnitNode
+  organizationalUnits(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenantId: ID!): OrganizationalUnitNodeConnection
+  projectPauses(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, inPeriodFrom: DateTime, inPeriodTo: DateTime): LeanProjectPauseNodeConnection
+  projectMemberships(before: String, after: String, first: Int, last: Int, project: ID!): ProjectMembershipNodeConnection
+  userProjectMembership(project: ID!): ProjectMembershipNode
+  userProjectMemberships: ProjectMembershipNodeConnection
+  projectMilestones(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, inPeriodFrom: DateTime, inPeriodTo: DateTime): ProjectMilestoneNodeConnection @deprecated(reason: "Use REST API GET /projects/:projectId/milestones instead")
+  projectMilestone(id: ID!): ProjectMilestoneNode @deprecated(reason: "Use REST API GET /projects/:projectId/milestones instead")
+  projectParticipants(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): ProjectParticipantUnionConnection
+  wbsSections(project: ID!): [WBSSectionNode!] @deprecated(reason: "Use REST API GET /projects/:projectId/wbs-sections instead.")
+  projectStructureTemplate(id: ID!): ProjectStructureTemplateNode
+  projectStructureTemplates(tenant: ID!, includeDefaultTemplates: Boolean = false): [ProjectStructureTemplateNode!]
+  projectSubcontractors(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): ProjectSubcontractorNodeConnection
+  projectSubcontractorWorker(id: ID!): ProjectSubcontractorWorkerNode
+  projectSubcontractorWorkers: ProjectSubcontractorWorkerNodeConnection
+  tenant(id: ID!): TenantNode @deprecated(reason: "Use REST API GET /tenants/:tenantId instead")
+  subcontractors(before: String, after: String, first: Int, last: Int, orderBy: [String!], nameContains: String!, project: ID!): TenantNodeConnection
+  tenantTradeVariation(id: ID!): TenantTradeVariationNode @deprecated(reason: "Use 'tradeVariation'.")
+  tradeVariation(id: ID!): TenantTradeVariationNode
+  tenantTradeVariationsInUse(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): TenantTradeVariationNodeConnection @deprecated(reason: "Use 'tradeVariationsUsedInProject' instead.")
+  tradeVariationsUsedInProject(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): TenantTradeVariationNodeConnection
+  tenantTradeVariations(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID!, includeProjectTrades: Boolean = true): TenantTradeVariationNodeConnection
+  projectTradeVariations(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!, includeTenantVariations: Boolean = true): TenantTradeVariationNodeConnection
+  tradeSequences(before: String, after: String, first: Int, last: Int, orderBy: [String!], project: ID!): TradeSequenceNodeConnection
+  tradeSequence(id: ID!): TradeSequenceNode
+  tradeSequenceTemplates(before: String, after: String, first: Int, last: Int, orderBy: [String!], tenant: ID!): TradeSequenceTemplateNodeConnection
+  tradeSequenceTemplate(id: ID!): TradeSequenceTemplateNode
+  userInvitation(invitationToken: String!): UserInvitation
+  ownUser: UserNode
+}
+
+type RegisterUserPayload {
+  clientMutationId: String
+  user: UserNode
+}
+
+type RelativeCustomScheduleViewContentRange {
+  last: TimeRange!
+  next: TimeRange!
+}
+
+type RemoveUserDeviceTokenPayload {
+  clientMutationId: String
+  user: UserNode
+}
+
+type RenameProjectVersionPayload {
+  clientMutationId: String
+  version: ProjectVersionNode
+}
+
+type ReportProblemReason {
+  reason: String!
+  occurences: Int!
+}
+
+type ResendUserInvitationPayload {
+  clientMutationId: String
+  user: UserNode
+  didSendEmail: Boolean!
+  lastInvitationSentAt: DateTime
+}
+
+type SetOrganizationalUnitMembershipsPayload {
+  clientMutationId: String
+  success: Boolean
+}
+
+type SetOrganizationalUnitProjectsPayload {
+  clientMutationId: String
+  organizationalUnit: OrganizationalUnitNode
+}
+
+type SetProjectBasePlanPayload {
+  clientMutationId: String
+  projectBasePlan: ProjectBasePlanNode
+}
+
+type StartProjectScheduleImportPayload {
+  fileUpload: FileUploadResultPayload!
+}
+
+type SyncProjectExportResult {
+  file: FileContent!
+}
+
+type TenantFeatures {
+  enableTenantTemplates: Boolean! @deprecated(reason: "Use individual feature flags.")
+  enableProjectStructureTemplates: Boolean!
+  enableTradeTemplates: Boolean!
+  enableTradeSequenceTemplates: Boolean!
+  enableProjectTemplates: Boolean!
+  enableOrganizationalUnits: Boolean!
+  enableApiKeys: Boolean!
+}
+
+type TenantNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  type: String!
+  logoUrl: String
+  timezone: String
+  features: TenantFeatures!
+  currency: String!
+  address: AddressNode
+}
+
+type TenantNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TenantNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TenantNodeEdge {
+  node: TenantNode!
+  cursor: String!
+}
+
+type TenantSignUpConfiguration {
+  enforceSSO: Boolean!
+  domain: String
+}
+
+type TenantTradeVariationNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  color: String!
+  nameAbbreviation: String @deprecated(reason: "No longer used after TEM1.")
+  isDeletable: Boolean!
+  type: String!
+  project: ProjectNode
+  usedIn: [ProjectNode!]!
+}
+
+type TenantTradeVariationNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TenantTradeVariationNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TenantTradeVariationNodeEdge {
+  node: TenantTradeVariationNode!
+  cursor: String!
+}
+
+type TicketAttachmentChangeNode implements TicketChangeNode & Node {
+  id: ID!
+  ticket: TicketNode!
+  user: UserNode!
+  timestamp: DateTime!
+  createdByTenant: TenantNode
+  event: String!
+  attachment: AttachmentNode!
+}
+
+type TicketChangeUnionConnection {
+  pageInfo: PageInfo!
+  edges: [TicketChangeUnionEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TicketChangeUnionEdge {
+  node: TicketChangeUnion!
+  cursor: String!
+}
+
+type TicketDeletedNode implements TicketChangeNode & Node {
+  id: ID!
+  ticket: TicketNode!
+  user: UserNode!
+  timestamp: DateTime!
+  createdByTenant: TenantNode
+}
+
+type TicketExportNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  title: String!
+  comment: String
+  file: FileContent!
+}
+
+type TicketExportTemplateNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  description: String
+  tenant: TenantNode
+}
+
+type TicketExportTemplateNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TicketExportTemplateNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TicketExportTemplateNodeEdge {
+  node: TicketExportTemplateNode!
+  cursor: String!
+}
+
+type TicketModifiedChangeNode {
+  id: ID!
+  deleted: Boolean!
+  ticket: TicketNode
+  changedAt: DateTime!
+}
+
+type TicketModifiedChangeNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TicketModifiedChangeNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TicketModifiedChangeNodeEdge {
+  node: TicketModifiedChangeNode!
+  cursor: String!
+}
+
+type TicketNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  extendedDeadline: DateTime @deprecated(reason: "TITO")
+  deadline: DateTime
+  title: String!
+  description: String
+  type: String @deprecated(reason: "TITO")
+  internalId: String! @deprecated(reason: "TITO")
+  cost: Float @deprecated(reason: "TITO")
+  tenantTradeVariation: TenantTradeVariationNode @deprecated(reason: "TITO")
+  subcontractor: TenantNode @deprecated(reason: "Use 'contributorGroup'")
+  contributorGroup: ProjectContributorGroupNode
+  project: ProjectNode!
+  responsibleUser: UserNode
+  status: String!
+  order: OrderNode
+  attachments: AttachmentNodeConnection!
+  statusUpdates(before: String, after: String, first: Int, last: Int, orderBy: [String!]): TicketStatusUpdateNodeConnection!
+  changes(before: String, after: String, first: Int, last: Int, startAt: DateTime, orderDescending: Boolean = true): TicketChangeUnionConnection!
+  links(orderBy: [String!]): [ExternalLinkNode!]!
+  upcomingDeadline: DateTime! @deprecated(reason: "TITO")
+}
+
+type TicketNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TicketNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TicketNodeEdge {
+  node: TicketNode!
+  cursor: String!
+}
+
+type TicketStatusUpdateNode implements TicketChangeNode & Node {
+  id: ID!
+  ticket: TicketNode!
+  user: UserNode!
+  timestamp: DateTime!
+  createdByTenant: TenantNode
+  description: String
+  status: String!
+  attachments(before: String, after: String, first: Int, last: Int, orderBy: [String!]): AttachmentNodeConnection!
+  createdBy: UserNode
+  updatedBy: UserNode
+}
+
+type TicketStatusUpdateNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TicketStatusUpdateNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TicketStatusUpdateNodeEdge {
+  node: TicketStatusUpdateNode!
+  cursor: String!
+}
+
+type TicketValueChangeNode implements TicketChangeNode & Node {
+  id: ID!
+  ticket: TicketNode!
+  user: UserNode!
+  timestamp: DateTime!
+  createdByTenant: TenantNode
+  changes: [NullableField!]!
+}
+
+type TimePeriodObject {
+  from: DateTime!
+  to: DateTime!
+}
+
+type TimeRange {
+  amount: Int!
+  unit: String!
+}
+
+type TradeErrorDelayReasons {
+  delays: [ReportProblemReason!]!
+  errors: [ReportProblemReason!]!
+  trade: TenantTradeVariationNode!
+}
+
+type TradeSequenceActivityDependencyNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  type: String!
+  lagInMinutes: Int!
+  bufferInMinutes: Int!
+  useDryingBreak: Boolean!
+  from: TradeSequenceActivityNode!
+  to: TradeSequenceActivityNode!
+}
+
+type TradeSequenceActivityNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  estimatedWorkers: Int
+  tactOffset: Int! @deprecated(reason: "Tact concept will be removed with FTS, use 'offset' instead.")
+  offset: Int!
+  tactPosition: Int! @deprecated(reason: "No longer used with FTS.")
+  duration: Int!
+  personnelCapacity: Int @deprecated(reason: "No longer used with FTS - use estimatedWorkers")
+  tenantTradeVariation: TenantTradeVariationNode!
+  dryingBreak: DryingBreak
+  taskTemplates: OrderTaskTemplateNodeConnection! @deprecated(reason: "Use 'taskTemplatesV2' instead.")
+  taskTemplatesV2: [OrderTaskTemplateNode!]!
+}
+
+type TradeSequenceActivityNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TradeSequenceActivityNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TradeSequenceActivityNodeEdge {
+  node: TradeSequenceActivityNode!
+  cursor: String!
+}
+
+type TradeSequenceNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  defaultDuration: Int!
+  project: ProjectNode!
+  calendar: CalendarNode!
+  activities(before: String, after: String, first: Int, last: Int, orderBy: [String!]): TradeSequenceActivityNodeConnection!
+  dependencies: [TradeSequenceActivityDependencyNode!]!
+}
+
+type TradeSequenceNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TradeSequenceNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TradeSequenceNodeEdge {
+  node: TradeSequenceNode!
+  cursor: String!
+}
+
+type TradeSequenceTemplateNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  defaultDuration: Int!
+  activities(before: String, after: String, first: Int, last: Int, orderBy: [String!]): TradeSequenceActivityNodeConnection!
+  dependencies: [TradeSequenceActivityDependencyNode!]!
+}
+
+type TradeSequenceTemplateNodeConnection {
+  pageInfo: PageInfo!
+  edges: [TradeSequenceTemplateNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type TradeSequenceTemplateNodeEdge {
+  node: TradeSequenceTemplateNode!
+  cursor: String!
+}
+
+type UpdateCustomScheduleViewPayload {
+  clientMutationId: String
+  customScheduleView: CustomScheduleViewNode
+}
+
+type UpdateExternalLinkPayload {
+  clientMutationId: String
+  externalLink: ExternalLinkNode
+}
+
+type UpdateMembershipPayload {
+  clientMutationId: String
+  membership: MembershipNode
+}
+
+type UpdateOrderPhotoPayload {
+  clientMutationId: String
+  photo: OrderPhotoNode
+}
+
+type UpdateOrderTaskStatusPayload {
+  clientMutationId: String
+  orderTask: OrderTaskNode
+}
+
+type UpdateOrganizationalUnitPayload {
+  clientMutationId: String
+  organizationalUnit: OrganizationalUnitNode
+}
+
+type UpdateProjectAlternativePayload {
+  clientMutationId: String
+  projectAlternative: ProjectAlternativeNode
+}
+
+type UpdateProjectContributorGroupMembershipPayload {
+  clientMutationId: String
+  projectContributorGroupMembership: ProjectContributorGroupMembershipNode
+}
+
+type UpdateProjectContributorGroupPayload {
+  clientMutationId: String
+  projectContributorGroup: ProjectContributorGroupNode
+}
+
+type UpdateProjectPayload {
+  clientMutationId: String
+  project: ProjectNode
+}
+
+type UpdateProjectStructureTemplatePayload {
+  clientMutationId: String
+  projectStructureTemplate: ProjectStructureTemplateNode
+}
+
+type UpdateProjectTemplatePayload {
+  clientMutationId: String
+  projectTemplate: ProjectTemplateNode
+}
+
+type UpdateTenantPayload {
+  clientMutationId: String
+  tenant: TenantNode
+}
+
+type UpdateTicketPayload {
+  clientMutationId: String
+  ticket: TicketNode
+}
+
+type UpdateTicketStatusUpdatePayload {
+  clientMutationId: String
+  ticketStatusUpdate: TicketStatusUpdateNode
+}
+
+type UpdateTradeSequenceTemplatePayload {
+  clientMutationId: String
+  tradeSequenceTemplate: TradeSequenceTemplateNode
+}
+
+type UpdateTradeVariationPayload {
+  clientMutationId: String
+  tradeVariation: TenantTradeVariationNode
+}
+
+type UpdateUserPayload {
+  clientMutationId: String
+  user: UserNode
+}
+
+type UserInvitation {
+  signUpConfiguration: TenantSignUpConfiguration
+}
+
+type UserNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  email: String!
+  mobileNumber: String
+  landlineNumber: String
+  firstName: String
+  languageCode: String!
+  lastName: String
+  isActive: Boolean!
+  timezone: String
+  profilePicture: UserProfilePictureNode
+  lastActiveAt: DateTime
+}
+
+type UserProfilePictureNode {
+  image: FileContent!
+  lowResImage: FileContent
+  imageThumbnail: FileContent
+}
+
+type WBSSectionNode implements Node {
+  id: ID!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  createdBy: UserNode
+  updatedBy: UserNode
+  name: String!
+  position: Int!
+  parent: WBSSectionNode
+}
+
+type WorkingDayNode implements Node {
+  id: ID!
+  weekday: Int!
+  workingTimes: WorkingTimeNodeConnection! @deprecated(reason: "Use 'workingTimesV2'")
+  workingTimesV2: [WorkingTimeNode!]!
+}
+
+type WorkingDayNodeConnection {
+  pageInfo: PageInfo!
+  edges: [WorkingDayNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type WorkingDayNodeEdge {
+  node: WorkingDayNode!
+  cursor: String!
+}
+
+type WorkingTimeNode {
+  id: ID!
+  from: Time!
+  to: Time!
+}
+
+type WorkingTimeNodeConnection {
+  pageInfo: PageInfo!
+  edges: [WorkingTimeNodeEdge!]!
+  totalCount: Int!
+  edgeCount: Int!
+}
+
+type WorkingTimeNodeEdge {
+  node: WorkingTimeNode!
+  cursor: String!
+}
+
+scalar Boolean
+
+scalar Date
+
+scalar DateTime
+
+scalar FieldValue
+
+scalar Float
+
+scalar ID
+
+scalar Int
+
+scalar String
+
+scalar Time
+
+scalar Upload
+
+union AttachmentNode = PhotoAttachmentNode | DocumentAttachmentNode
+
+union OrderDependencyUnion = OrderNode | ProjectMilestoneNode
+
+union OrderHistoryUnion = OrderHistoryChangeEvent | OrderStatusReportHistoryEvent | OrderTaskHistoryEvent | OrderPhotoHistoryEvent | OrderDocumentHistoryEvent | ExternalLinkHistoryEvent
+
+union ProjectExportResult = SyncProjectExportResult | AsyncProjectExportResult
+
+union ProjectMessageUnion = OrderStatusReportMessageNode | OrderChangeMessageNode
+
+union ProjectParticipantUnion = ProjectSubcontractorNode | ConstructionManagementNode
+
+union TicketChangeUnion = TicketStatusUpdateNode | TicketValueChangeNode | TicketAttachmentChangeNode | TicketDeletedNode

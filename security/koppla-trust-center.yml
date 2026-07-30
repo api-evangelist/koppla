@@ -1,0 +1,117 @@
+generated: '2026-07-19'
+method: searched
+probe: true
+source: https://security.koppla.de/
+url: https://security.koppla.de/
+platform: SafeBase
+title: koppla Trust Center
+certifications:
+- ISO/IEC 27001
+- TISAX
+- GDPR
+compliance_note: 'The trust center lists ISO/IEC 27001, TISAX (the automotive-industry
+  information security assessment exchange) and GDPR under Compliance. koppla also
+  advertises "DSGVO- und ISO27001-konform" on both published pricing tiers.'
+security_contact: lasse.steffen@koppla.de
+security_contact_role: CTO
+sections:
+- Overview
+- Compliance
+- Documents
+- Risk Profile
+- Product Security
+- Reports
+- Data Security
+- App Security
+- Legal
+- Data Privacy
+- Access Control
+- Infrastructure
+- Endpoint Security
+- Network Security
+- Corporate Security
+- Policies
+- Physical & Environment
+documents:
+- name: Pentest Report
+  category: REPORTS
+  access: gated
+- name: ISO/IEC 27001
+  category: COMPLIANCE
+  access: gated
+- name: Data Processing Agreement
+  category: LEGAL
+  access: gated
+- name: Acceptable Use Policy
+  category: POLICIES
+  access: gated
+- name: Access Control Policy
+  category: POLICIES
+  access: gated
+- name: Anti-Malicious Software Policy
+  category: POLICIES
+  access: gated
+- name: Asset Authorization and Monitoring Policy
+  category: POLICIES
+  access: gated
+- name: Asset Management Policy
+  category: POLICIES
+  access: gated
+- name: Audit and Accountability Policy
+  category: POLICIES
+  access: gated
+- name: Awareness and Training Policy
+  category: POLICIES
+  access: gated
+- name: Backup Policy
+  category: POLICIES
+  access: gated
+- name: Bring Your Own Device (BYOD) Policy
+  category: POLICIES
+  access: gated
+documents_note: Document list is truncated by the trust center UI ("View all documents");
+  access to each artifact requires requesting access through SafeBase.
+risk_profile:
+  data_access_level: Internal
+  impact_level: Moderate
+  recovery_time_objective: 24-48 hours
+controls_advertised:
+- Role-Based Access Control
+- Service-Level Agreement
+- Application Penetration Testing
+- Credential Management
+- Responsible Disclosure
+- Single-Sign-On (SSO)
+- Data Backups
+- Data Erasure
+- Access Monitoring
+- Web Application Firewall
+- Virtual Private Cloud
+- IDS/IPS
+- Disk Encryption
+- Anti-Malware
+- DNS Filtering
+- Subprocessors published
+- Data Privacy Officer
+- Data Breach Notifications
+infrastructure:
+  cloud_provider: Amazon Web Services
+  status_monitoring: https://status.koppla.de/
+customer_references:
+- Max Bögl
+- ZECH Bau
+- Implenia
+- LEONHARD WEISS BAU
+- Instone Real Estate
+- KoWo Erfurt
+evidence:
+- source: https://security.koppla.de/
+  keywords:
+  - iso/iec 27001
+  - tisax
+  - gdpr
+  - trust center
+  - responsible disclosure
+- source: https://www.koppla.de/preise
+  keywords:
+  - DSGVO- und ISO27001-konform

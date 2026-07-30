@@ -1,0 +1,55 @@
+generated: '2026-07-19'
+method: generated
+source: graphql/koppla-graphql-introspection.json
+note: 'Skills are grounded exclusively in operation names verified against the live
+  koppla GraphQL schema captured in graphql/koppla-graphql.graphql. koppla publishes
+  no AGENTS.md or provider-authored skills; no input-object field names are invented
+  here - each skill directs the agent to resolve input shapes from the schema.'
+api_access: 'The koppla API is an Enterprise-plan contract feature with no public
+  documentation, no sandbox and no self-service signup. These skills describe correct
+  use for a consumer who already holds credentials.'
+skills:
+- file: koppla-browse-project-schedule.md
+  name: Browse a koppla project schedule
+  api: graphql/koppla-graphql.graphql
+  kind: read
+  operations:
+  - Query.userProjects
+  - Query.projects
+  - Query.projectOrders
+  - Query.order
+  - Query.tradeSequences
+  - Query.projectMilestones
+- file: koppla-report-site-progress.md
+  name: Report construction site progress to koppla
+  api: graphql/koppla-graphql.graphql
+  kind: write
+  operations:
+  - Query.projectOrders
+  - Query.projectOrderStatusReports
+  - Mutation.createOrderStatusReports
+  - Mutation.updateOrderTaskStatus
+  - Mutation.createOrderPhotoV2
+  - Query.projectPhotos
+- file: koppla-manage-tickets.md
+  name: Manage koppla tickets and obstructions
+  api: graphql/koppla-graphql.graphql
+  kind: read-write
+  operations:
+  - Query.ticketsV2
+  - Query.ticket
+  - Query.ticketChanges
+  - Mutation.createTicket
+  - Mutation.updateTicket
+  - Mutation.createTicketStatusUpdate
+  - Mutation.createTicketAttachment
+  - Mutation.createTicketExport
+cross_cutting_rules:
+- 'No idempotency: the schema has zero idempotency-key affordances; retried
+  mutations duplicate. Every write skill must verify-then-retry.'
+- 'Relay cursor pagination on every list: first/after + pageInfo.hasNextPage.'
+- 'Errors arrive as HTTP 200 with errors[] and extensions.code; gateway errors arrive
+  as HTTP 403 plain JSON.'
+- '45 schema fields are deprecated with stated replacements - check the SDL before
+  selecting fields.'
+- 'Multi-tenant: several root queries require a tenant ID; userProjects avoids it.'

@@ -1,0 +1,66 @@
+generated: '2026-07-19'
+method: derived
+source: graphql/koppla-graphql-introspection.json + observed responses from
+  https://api.koppla.de/api/graphql/v1
+format: graphql-errors
+format_note: 'koppla''s API is GraphQL, so errors are not RFC 9457 problem+json. They
+  are returned as a top-level errors[] array, typically with HTTP 200, following the
+  GraphQL specification. No errors/koppla-problem-types.yml is emitted because there
+  is no OpenAPI with 4xx/5xx responses to derive one from, and koppla publishes no
+  error reference.'
+envelope:
+  location: response body errors[]
+  fields:
+  - message
+  - locations[]
+  - path[]
+  - extensions.code
+  - extensions.exception
+  partial_success: 'GraphQL semantics apply - data may be partially populated while
+    errors[] describes the failed paths (observed: path ["ownUser"] failed while the
+    response still returned a data envelope).'
+codes:
+- code: UNAUTHENTICATED
+  status: 200
+  message: Invalid Authentication
+  meaning: The request carried no valid credential for the requested field.
+  remediation: Present a valid bearer token obtained through the koppla (WorkOS-backed)
+    authentication flow.
+  observed: true
+  evidence: 'POST {"query":"{ownUser{id}}"} with no Authorization header returned
+    extensions.code UNAUTHENTICATED.'
+- code: MISSING_AUTHENTICATION_TOKEN
+  status: 403
+  message: Missing Authentication Token
+  meaning: AWS API Gateway rejected the request before it reached the GraphQL
+    resolver - typically an unknown path or a missing credential on a non-GraphQL
+    route.
+  remediation: Verify the request path and include credentials.
+  observed: true
+  layer: gateway
+  evidence: GET https://api.koppla.de/ and every probed /.well-known/* path returned
+    this body with HTTP 403.
+gateway:
+  provider: AWS API Gateway
+  note: 'Gateway-layer rejections are plain JSON ({"message": ...}), not GraphQL
+    errors - consumers must handle both shapes.'
+domain_error_types:
+  note: 'The schema carries domain types that model business-level problems rather
+    than transport errors; these are data, not errors[] entries.'
+  types:
+  - name: ErrorDelayReasons
+    role: reasons a construction order was delayed
+  - name: TradeErrorDelayReasons
+    role: delay reasons grouped per trade
+  - name: ReportProblemReason
+    role: problem reason attached to a status report
+  related_queries:
+  - Query.errorDelayReasons
+  - Query.errorDelayReasonsPerTrade
+observations:
+- 'Unauthenticated GraphQL errors include extensions.exception.stacktrace exposing
+  server-side file paths and line numbers (/var/task/src/index.js). Suppressing
+  stack traces in production error extensions is standard hardening. Recorded as an
+  observation for the provider, not a vulnerability report.'
+- No documented error-code registry exists; this catalog covers only codes that could
+  be observed unauthenticated and will be thin until koppla publishes a reference.

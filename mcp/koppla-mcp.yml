@@ -1,0 +1,800 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: graphql/koppla-graphql-introspection.json
+note: koppla publishes no MCP server. This is a CANDIDATE tool surface derived mechanically from the koppla
+  GraphQL schema (73 queries, 81 mutations) so the provider or a consumer can see what an MCP server over
+  this API would look like. Not an endorsement and not provider-published; the API itself requires an
+  Enterprise contract and authentication.
+server:
+  name: koppla
+  transport: http
+  url: null
+  endpoint: https://api.koppla.de/api/graphql/v1
+tool_count: 154
+tools:
+- name: query_project
+  description: Retrieves the project with the given ID
+  operation: Query.project
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.project
+- name: query_projects
+  description: Retrieves a list of your projects
+  operation: Query.projects
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projects
+- name: query_user_projects
+  description: Retrieves a list of your projects. The returned results are projects where you are either
+    a general contractor, subcontractor worker or both
+  operation: Query.userProjects
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userProjects
+- name: query_user_schedule_views
+  description: GraphQL query userScheduleViews
+  operation: Query.userScheduleViews
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userScheduleViews
+- name: query_order_history
+  description: Retrieves changes related to an order.
+  operation: Query.orderHistory
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.orderHistory
+- name: query_project_alternative_create_task
+  description: Fetches task for alternative creation.
+  operation: Query.projectAlternativeCreateTask
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectAlternativeCreateTask
+- name: query_project_alternative
+  description: GraphQL query projectAlternative
+  operation: Query.projectAlternative
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectAlternative
+- name: query_project_alternatives
+  description: GraphQL query projectAlternatives
+  operation: Query.projectAlternatives
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectAlternatives
+- name: query_project_contributor_groups_search
+  description: GraphQL query projectContributorGroupsSearch
+  operation: Query.projectContributorGroupsSearch
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectContributorGroupsSearch
+- name: query_project_contributor_group
+  description: GraphQL query projectContributorGroup
+  operation: Query.projectContributorGroup
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectContributorGroup
+- name: query_project_contributor_groups
+  description: GraphQL query projectContributorGroups
+  operation: Query.projectContributorGroups
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectContributorGroups
+- name: query_own_project_contributor_group_memberships
+  description: GraphQL query ownProjectContributorGroupMemberships
+  operation: Query.ownProjectContributorGroupMemberships
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ownProjectContributorGroupMemberships
+- name: query_project_contributor_group_membership
+  description: GraphQL query projectContributorGroupMembership
+  operation: Query.projectContributorGroupMembership
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectContributorGroupMembership
+- name: query_project_export
+  description: GraphQL query projectExport
+  operation: Query.projectExport
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectExport
+- name: query_project_messages
+  description: Fetches project messages for the logged in user.
+  operation: Query.projectMessages
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectMessages
+- name: query_project_template_create_task
+  description: Fetches task for template creation.
+  operation: Query.projectTemplateCreateTask
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectTemplateCreateTask
+- name: query_project_template
+  description: GraphQL query projectTemplate
+  operation: Query.projectTemplate
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectTemplate
+- name: query_project_templates
+  description: GraphQL query projectTemplates
+  operation: Query.projectTemplates
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectTemplates
+- name: query_project_versions
+  description: Retrieves the different versions of a project.
+  operation: Query.projectVersions
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectVersions
+- name: query_project_version
+  description: Retrieves the project version of the passed in ID.
+  operation: Query.projectVersion
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectVersion
+- name: query_tickets
+  description: Fetches the tickets of a project with the specified filters. Arguments are connected by
+    "AND".
+  operation: Query.tickets
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tickets
+- name: query_tickets_v2
+  description: Fetches the tickets of a project with the specified filters. Arguments are connected by
+    "AND".
+  operation: Query.ticketsV2
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ticketsV2
+- name: query_ticket
+  description: Fetches a single Ticket.
+  operation: Query.ticket
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ticket
+- name: query_modified_tickets
+  description: Returns tickets, that were modified after a certain time.
+  operation: Query.modifiedTickets
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.modifiedTickets
+- name: query_ticket_changes
+  description: Retrieves changes of ticket
+  operation: Query.ticketChanges
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ticketChanges
+- name: query_ticket_export_templates
+  description: Fetches the ticket export templates of a tenant.
+  operation: Query.ticketExportTemplates
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ticketExportTemplates
+- name: query_membership
+  description: Retrieves the membership with the given ID
+  operation: Query.membership
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.membership
+- name: query_own_tenant_membership
+  description: Retrieves membership of calling user for the tenant. Returns null if none exists.
+  operation: Query.ownTenantMembership
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ownTenantMembership
+- name: query_memberships
+  description: Retrieves a list of your memberships
+  operation: Query.memberships
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.memberships
+- name: query_calendar
+  description: Fetches a single calendar.
+  operation: Query.calendar
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.calendar
+- name: query_calendars
+  description: Fetch calendars of a given project.
+  operation: Query.calendars
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.calendars
+- name: query_order_dependency
+  description: Fetches a single order dependency.
+  operation: Query.orderDependency
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.orderDependency
+- name: query_project_order_dependencies
+  description: Fetch order dependencies of a given project.
+  operation: Query.projectOrderDependencies
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectOrderDependencies
+- name: query_order
+  description: Fetches a single order
+  operation: Query.order
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.order
+- name: query_orders
+  description: Fetches multiple orders of a single project. Orders that don't exist are not returned.
+  operation: Query.orders
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.orders
+- name: query_user_orders
+  description: Fetch orders within time period for a given user
+  operation: Query.userOrders
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userOrders
+- name: query_modified_orders_v2
+  description: Returns orders, that were modified after a certain time. In contrast to modifiedOrders
+    returns all project orders.
+  operation: Query.modifiedOrdersV2
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.modifiedOrdersV2
+- name: query_project_orders
+  description: Fetch orders within time period for a given project
+  operation: Query.projectOrders
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectOrders
+- name: query_order_photo
+  description: Fetches a single order photo.
+  operation: Query.orderPhoto
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.orderPhoto
+- name: query_project_photos
+  description: Fetches order photos of project that match the filter.
+  operation: Query.projectPhotos
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectPhotos
+- name: query_order_status_report
+  description: Fetches a single order status report.
+  operation: Query.orderStatusReport
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.orderStatusReport
+- name: query_project_order_status_reports
+  description: Fetches order statuses for a given project. Results are return in descending order.
+  operation: Query.projectOrderStatusReports
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectOrderStatusReports
+- name: query_error_delay_reasons
+  description: Fetches reasons for error and delays of project.
+  operation: Query.errorDelayReasons
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.errorDelayReasons
+- name: query_error_delay_reasons_per_trade
+  description: Fetches reasons for error and delays of project. Values are grouped by trade of the activity
+    that they were reported for.
+  operation: Query.errorDelayReasonsPerTrade
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.errorDelayReasonsPerTrade
+- name: query_organizational_unit
+  description: Retrieves the organizational unit with the given ID
+  operation: Query.organizationalUnit
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.organizationalUnit
+- name: query_organizational_units
+  description: Retrieves a list of organizational units for a tenant
+  operation: Query.organizationalUnits
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.organizationalUnits
+- name: query_project_pauses
+  description: Fetch all pauses for a  project
+  operation: Query.projectPauses
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectPauses
+- name: query_project_memberships
+  description: Fetch project memberships for a given project
+  operation: Query.projectMemberships
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectMemberships
+- name: query_user_project_membership
+  description: Fetch project membership of user for a given project
+  operation: Query.userProjectMembership
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userProjectMembership
+- name: query_user_project_memberships
+  description: Fetch all project memberships of user.
+  operation: Query.userProjectMemberships
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userProjectMemberships
+- name: query_project_milestones
+  description: Fetch project milestones for a given project
+  operation: Query.projectMilestones
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectMilestones
+- name: query_project_milestone
+  description: Retrieves the project milestone with the given ID
+  operation: Query.projectMilestone
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectMilestone
+- name: query_project_participants
+  description: Fetches project participants
+  operation: Query.projectParticipants
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectParticipants
+- name: query_wbs_sections
+  description: Fetch WBS sections of a project.
+  operation: Query.wbsSections
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.wbsSections
+- name: query_project_structure_template
+  description: Retrieves the project structure template with the given ID
+  operation: Query.projectStructureTemplate
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectStructureTemplate
+- name: query_project_structure_templates
+  description: Retrieves a list of project structure templates
+  operation: Query.projectStructureTemplates
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectStructureTemplates
+- name: query_project_subcontractors
+  description: Fetch subcontractors for a given project
+  operation: Query.projectSubcontractors
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectSubcontractors
+- name: query_project_subcontractor_worker
+  description: Fetches a single project subcontractor worker.
+  operation: Query.projectSubcontractorWorker
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectSubcontractorWorker
+- name: query_project_subcontractor_workers
+  description: Fetches project subcontractor workers for the currently logged in user.
+  operation: Query.projectSubcontractorWorkers
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectSubcontractorWorkers
+- name: query_tenant
+  description: Retrieves the tenant with the given ID
+  operation: Query.tenant
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tenant
+- name: query_subcontractors
+  description: Retrieves a list of subcontractors.
+  operation: Query.subcontractors
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.subcontractors
+- name: query_tenant_trade_variation
+  description: Retrieves the tenant trade variation with the given ID
+  operation: Query.tenantTradeVariation
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tenantTradeVariation
+- name: query_trade_variation
+  description: Retrieves the trade variation with the given ID.
+  operation: Query.tradeVariation
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeVariation
+- name: query_tenant_trade_variations_in_use
+  description: Retrieves a list of your tenant trade variations that are used for tickets or orders.
+  operation: Query.tenantTradeVariationsInUse
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tenantTradeVariationsInUse
+- name: query_trade_variations_used_in_project
+  description: Retrieves a list of trade variations that are used for tickets, orders or trade sequences
+    of a project.
+  operation: Query.tradeVariationsUsedInProject
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeVariationsUsedInProject
+- name: query_tenant_trade_variations
+  description: Retrieves a list of your tenant trade variations
+  operation: Query.tenantTradeVariations
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tenantTradeVariations
+- name: query_project_trade_variations
+  description: Retrieves a list of project trade variations.
+  operation: Query.projectTradeVariations
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.projectTradeVariations
+- name: query_trade_sequences
+  description: Fetch trade sequences that belong to a project
+  operation: Query.tradeSequences
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeSequences
+- name: query_trade_sequence
+  description: Fetches a single trade sequence
+  operation: Query.tradeSequence
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeSequence
+- name: query_trade_sequence_templates
+  description: Fetch trade sequence templates that belong to a tenant.
+  operation: Query.tradeSequenceTemplates
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeSequenceTemplates
+- name: query_trade_sequence_template
+  description: Fetches a single trade sequence template.
+  operation: Query.tradeSequenceTemplate
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.tradeSequenceTemplate
+- name: query_user_invitation
+  description: Retrieves invitation details for the token. Returns null when invitation for token doesn't
+    exist.
+  operation: Query.userInvitation
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.userInvitation
+- name: query_own_user
+  description: Retrieves the details of the currently logged in user
+  operation: Query.ownUser
+  kind: read
+  source_operation: graphql/koppla-graphql.graphql#Query.ownUser
+- name: mutate_create_project
+  description: Creates a project
+  operation: Mutation.createProject
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProject
+- name: mutate_update_project
+  description: Updates a project
+  operation: Mutation.updateProject
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProject
+- name: mutate_set_project_base_plan
+  description: GraphQL mutation setProjectBasePlan
+  operation: Mutation.setProjectBasePlan
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.setProjectBasePlan
+- name: mutate_create_custom_schedule_view
+  description: GraphQL mutation createCustomScheduleView
+  operation: Mutation.createCustomScheduleView
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createCustomScheduleView
+- name: mutate_update_custom_schedule_view
+  description: GraphQL mutation updateCustomScheduleView
+  operation: Mutation.updateCustomScheduleView
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateCustomScheduleView
+- name: mutate_delete_custom_schedule_view
+  description: GraphQL mutation deleteCustomScheduleView
+  operation: Mutation.deleteCustomScheduleView
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteCustomScheduleView
+- name: mutate_create_project_alternative
+  description: GraphQL mutation createProjectAlternative
+  operation: Mutation.createProjectAlternative
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectAlternative
+- name: mutate_update_project_alternative
+  description: GraphQL mutation updateProjectAlternative
+  operation: Mutation.updateProjectAlternative
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectAlternative
+- name: mutate_create_project_alternative_async
+  description: Starts async task to create alternative. Use 'createProjectAlternativeTask' with returned
+    'taskId' of payload to fetch details.
+  operation: Mutation.createProjectAlternativeAsync
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectAlternativeAsync
+- name: mutate_create_project_contributor_group
+  description: GraphQL mutation createProjectContributorGroup
+  operation: Mutation.createProjectContributorGroup
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectContributorGroup
+- name: mutate_update_project_contributor_group
+  description: GraphQL mutation updateProjectContributorGroup
+  operation: Mutation.updateProjectContributorGroup
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectContributorGroup
+- name: mutate_delete_project_contributor_group
+  description: GraphQL mutation deleteProjectContributorGroup
+  operation: Mutation.deleteProjectContributorGroup
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteProjectContributorGroup
+- name: mutate_create_project_contributor_group_membership
+  description: GraphQL mutation createProjectContributorGroupMembership
+  operation: Mutation.createProjectContributorGroupMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectContributorGroupMembership
+- name: mutate_update_project_contributor_group_membership
+  description: GraphQL mutation updateProjectContributorGroupMembership
+  operation: Mutation.updateProjectContributorGroupMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectContributorGroupMembership
+- name: mutate_delete_project_contributor_group_membership
+  description: GraphQL mutation deleteProjectContributorGroupMembership
+  operation: Mutation.deleteProjectContributorGroupMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteProjectContributorGroupMembership
+- name: mutate_export_project
+  description: 'Exports project in the specified format. Based on the project size and the format, the
+    export could exceed the available timeout. To prevent timeouts we return '
+  operation: Mutation.exportProject
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.exportProject
+- name: mutate_update_project_message_status
+  description: Update statuses of messages with the passed in ID.
+  operation: Mutation.updateProjectMessageStatus
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectMessageStatus
+- name: mutate_start_project_schedule_import
+  description: Sets up project for schedule import. A 'importProjectSchedule' operation is published to
+    RTC if the preparation succeeds.
+  operation: Mutation.startProjectScheduleImport
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.startProjectScheduleImport
+- name: mutate_create_project_template
+  description: Starts async task to create project template. Use 'createProjectAlternativeTask' with returned
+    'taskId' of payload to fetch details.
+  operation: Mutation.createProjectTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectTemplate
+- name: mutate_update_project_template
+  description: GraphQL mutation updateProjectTemplate
+  operation: Mutation.updateProjectTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectTemplate
+- name: mutate_delete_project_template
+  description: GraphQL mutation deleteProjectTemplate
+  operation: Mutation.deleteProjectTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteProjectTemplate
+- name: mutate_create_version
+  description: Create a new project version.
+  operation: Mutation.createVersion
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createVersion
+- name: mutate_rename_version
+  description: Changes the name of a project version.
+  operation: Mutation.renameVersion
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.renameVersion
+- name: mutate_delete_version
+  description: Deletes a project version.
+  operation: Mutation.deleteVersion
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteVersion
+- name: mutate_create_ticket
+  description: Creates a Ticket
+  operation: Mutation.createTicket
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicket
+- name: mutate_update_ticket
+  description: Updates a Ticket
+  operation: Mutation.updateTicket
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTicket
+- name: mutate_update_tickets
+  description: Update multiple tickets.
+  operation: Mutation.updateTickets
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTickets
+- name: mutate_delete_ticket
+  description: Deletes Ticket with input ID
+  operation: Mutation.deleteTicket
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTicket
+- name: mutate_delete_tickets
+  description: Delete multiple tickets.
+  operation: Mutation.deleteTickets
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTickets
+- name: mutate_create_ticket_attachment
+  description: Creates a Ticket attachment.
+  operation: Mutation.createTicketAttachment
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicketAttachment
+- name: mutate_delete_ticket_attachment
+  description: Deletes Ticket attachment.
+  operation: Mutation.deleteTicketAttachment
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTicketAttachment
+- name: mutate_create_ticket_export
+  description: Creates a ticket export and returns a file to download.
+  operation: Mutation.createTicketExport
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicketExport
+- name: mutate_create_ticket_status_update
+  description: Creates a ticket status update
+  operation: Mutation.createTicketStatusUpdate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicketStatusUpdate
+- name: mutate_create_ticket_status_updates
+  description: Creates multiple ticket status update.
+  operation: Mutation.createTicketStatusUpdates
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicketStatusUpdates
+- name: mutate_update_ticket_status_update
+  description: Updates a ticket status update
+  operation: Mutation.updateTicketStatusUpdate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTicketStatusUpdate
+- name: mutate_delete_ticket_status_update
+  description: Deletes ticket status update with input ID
+  operation: Mutation.deleteTicketStatusUpdate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTicketStatusUpdate
+- name: mutate_create_ticket_status_update_attachment
+  description: Creates a Ticket status update attachment.
+  operation: Mutation.createTicketStatusUpdateAttachment
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTicketStatusUpdateAttachment
+- name: mutate_delete_ticket_status_update_attachment
+  description: Deletes Ticket status update attachment.
+  operation: Mutation.deleteTicketStatusUpdateAttachment
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTicketStatusUpdateAttachment
+- name: mutate_create_attachment
+  description: Creates an attachment.
+  operation: Mutation.createAttachment
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createAttachment
+- name: mutate_create_order_document
+  description: GraphQL mutation createOrderDocument
+  operation: Mutation.createOrderDocument
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrderDocument
+- name: mutate_delete_order_document
+  description: Deletes a document
+  operation: Mutation.deleteOrderDocument
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteOrderDocument
+- name: mutate_create_external_link
+  description: Creates a link
+  operation: Mutation.createExternalLink
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createExternalLink
+- name: mutate_update_external_link
+  description: Updates a link
+  operation: Mutation.updateExternalLink
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateExternalLink
+- name: mutate_delete_external_link
+  description: Deletes a link
+  operation: Mutation.deleteExternalLink
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteExternalLink
+- name: mutate_create_membership_v2
+  description: Creates a membership for a given user with the given email
+  operation: Mutation.createMembershipV2
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createMembershipV2
+- name: mutate_update_membership_v2
+  description: Updates existing membership
+  operation: Mutation.updateMembershipV2
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateMembershipV2
+- name: mutate_create_membership
+  description: Creates a membership for a given user
+  operation: Mutation.createMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createMembership
+- name: mutate_update_membership
+  description: Updates existing membership
+  operation: Mutation.updateMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateMembership
+- name: mutate_delete_membership
+  description: Deletes a membership
+  operation: Mutation.deleteMembership
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteMembership
+- name: mutate_create_order_photo
+  description: Creates an order photo
+  operation: Mutation.createOrderPhoto
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrderPhoto
+- name: mutate_create_order_photo_v2
+  description: 'Creates an order photo without content. Returns url that can be used to upload photo.
+    The photo node will be available once the photo was uploaded and finished '
+  operation: Mutation.createOrderPhotoV2
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrderPhotoV2
+- name: mutate_update_order_photo
+  description: Updates an order photo
+  operation: Mutation.updateOrderPhoto
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateOrderPhoto
+- name: mutate_delete_order_photo
+  description: Deletes an order photo
+  operation: Mutation.deleteOrderPhoto
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteOrderPhoto
+- name: mutate_export_project_photos
+  description: Exports order photos of project that match the filter and sends them as zipped file via
+    email.
+  operation: Mutation.exportProjectPhotos
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.exportProjectPhotos
+- name: mutate_create_order_status_report
+  description: Creates an order status report.
+  operation: Mutation.createOrderStatusReport
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrderStatusReport
+- name: mutate_create_order_status_reports
+  description: Creates order status reports for the same project. Only one status can be reported per
+    order.
+  operation: Mutation.createOrderStatusReports
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrderStatusReports
+- name: mutate_update_order_task_status
+  description: Updates an order task status
+  operation: Mutation.updateOrderTaskStatus
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateOrderTaskStatus
+- name: mutate_delete_order_task
+  description: Deletes an order task
+  operation: Mutation.deleteOrderTask
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteOrderTask
+- name: mutate_create_organizational_unit
+  description: Creates an organizational unit
+  operation: Mutation.createOrganizationalUnit
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createOrganizationalUnit
+- name: mutate_update_organizational_unit
+  description: Updates an organizational unit
+  operation: Mutation.updateOrganizationalUnit
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateOrganizationalUnit
+- name: mutate_delete_organizational_unit
+  description: Deletes an organizational unit
+  operation: Mutation.deleteOrganizationalUnit
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteOrganizationalUnit
+- name: mutate_set_organizational_unit_projects
+  description: Sets the projects for an organizational unit
+  operation: Mutation.setOrganizationalUnitProjects
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.setOrganizationalUnitProjects
+- name: mutate_set_organizational_unit_memberships
+  description: Sets the organizational unit memberships for a user. Replaces all existing OU memberships
+    in the tenant with the given set.
+  operation: Mutation.setOrganizationalUnitMemberships
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.setOrganizationalUnitMemberships
+- name: mutate_create_project_structure_template
+  description: Creates a project
+  operation: Mutation.createProjectStructureTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectStructureTemplate
+- name: mutate_update_project_structure_template
+  description: Updates a project structure template
+  operation: Mutation.updateProjectStructureTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateProjectStructureTemplate
+- name: mutate_delete_project_structure_template
+  description: Deletes a project structure template.
+  operation: Mutation.deleteProjectStructureTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteProjectStructureTemplate
+- name: mutate_update_tenant
+  description: Updates a tenant
+  operation: Mutation.updateTenant
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTenant
+- name: mutate_create_tenant_trade_variation
+  description: Creates a tenant trade variation
+  operation: Mutation.createTenantTradeVariation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTenantTradeVariation
+- name: mutate_delete_tenant_trade_variation
+  description: Deletes a tenant trade variation
+  operation: Mutation.deleteTenantTradeVariation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTenantTradeVariation
+- name: mutate_create_project_trade_variation
+  description: Creates a project trade variation.
+  operation: Mutation.createProjectTradeVariation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createProjectTradeVariation
+- name: mutate_update_trade_variation
+  description: Updates a project or tenant trade variation.
+  operation: Mutation.updateTradeVariation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTradeVariation
+- name: mutate_delete_trade_variation
+  description: Deletes a trade variation.
+  operation: Mutation.deleteTradeVariation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTradeVariation
+- name: mutate_create_trade_sequence_template
+  description: Creates a trade sequence template.
+  operation: Mutation.createTradeSequenceTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTradeSequenceTemplate
+- name: mutate_create_trade_sequence_template_from_sequence
+  description: Creates a trade sequence template from a trade sequence.
+  operation: Mutation.createTradeSequenceTemplateFromSequence
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.createTradeSequenceTemplateFromSequence
+- name: mutate_update_trade_sequence_template
+  description: Updates an existing trade sequence template.
+  operation: Mutation.updateTradeSequenceTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateTradeSequenceTemplate
+- name: mutate_delete_trade_sequence_template
+  description: Deletes a trade sequence template. This will also delete all it's activities and dependencies.
+  operation: Mutation.deleteTradeSequenceTemplate
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.deleteTradeSequenceTemplate
+- name: mutate_register_user
+  description: Registers a new user after being invited.
+  operation: Mutation.registerUser
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.registerUser
+- name: mutate_update_user
+  description: Update attributes of a user
+  operation: Mutation.updateUser
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.updateUser
+- name: mutate_add_user_device_token
+  description: Add device token for a user
+  operation: Mutation.addUserDeviceToken
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.addUserDeviceToken
+- name: mutate_resend_user_invitation
+  description: Resends user invitation for a membership.
+  operation: Mutation.resendUserInvitation
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.resendUserInvitation
+- name: mutate_remove_user_device_token
+  description: Remove device token for a user
+  operation: Mutation.removeUserDeviceToken
+  kind: write
+  source_operation: graphql/koppla-graphql.graphql#Mutation.removeUserDeviceToken

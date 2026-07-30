@@ -1,0 +1,219 @@
+generated: '2026-07-19'
+method: searched
+source: https://status.koppla.de/ + graphql/koppla-graphql-introspection.json
+versioning:
+  scheme: field-level-deprecation
+  current: null
+  docs: null
+  note: 'koppla exposes no URI or header API version. Versioning is handled inside the GraphQL schema:
+    45 fields carry @deprecated with an explicit migration reason. The common patterns are a V2 sibling
+    field (workingTimesV2, exceptionsV2, taskTemplatesV2, createOrderPhotoV2) and a pointer to koppla''s
+    newer REST API. This is a real, legible deprecation practice even though no written policy is
+    published.'
+  app_version_observed: web@5.202.0 (Sentry release id in the koppla web client)
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  in_schema_deprecation: true
+  deprecated_field_count: 45
+  migration_reasons_provided: true
+  note: 'Every deprecated field states why and what to use instead, which is stronger than most providers
+    manage. What is missing is a published policy: no sunset dates, no removal timeline, and no Sunset/Deprecation
+    header contract (RFC 8594) could be observed.'
+sla:
+  url: https://security.koppla.de/
+  uptime_target: null
+  note: A Service-Level Agreement is listed as a Product Security control on the koppla trust center,
+    but the document is gated behind a SafeBase access request, so no uptime target could be captured.
+status_page: https://status.koppla.de/
+status_page_details:
+  provider: incident.io
+  page_id: 01HPAQN4NS3EFFAE9XV52WZT6R
+  machine_readable:
+  - path: /api/v2/status.json
+    status: 200
+    content_type: application/json
+  - path: /history.rss
+    status: 200
+    content_type: application/rss+xml
+  - path: /feed.rss
+    status: 200
+    content_type: application/rss+xml
+  subscribe: true
+  components:
+  - name: Web
+    uptime_90d: 99.92%
+  - name: App
+    uptime_90d: 99.92%
+  observed_window: Apr 2026 - Jul 2026
+  observed_status: All Systems Operational
+  recent_incident_example:
+    title: Login not working due to 3rd party outage
+    date: '2026-07-16'
+    status: Resolved
+support:
+  help_center: https://support.koppla.de/de
+  platform: Intercom (Fin)
+recovery:
+  recovery_time_objective: 24-48 hours
+  source: https://security.koppla.de/
+deprecated_operations:
+- operation: CalendarExceptionNode.workingTimes
+  reason: Use 'workingTimesV2'
+  source: graphql/koppla-graphql.graphql
+- operation: CalendarNode.workingDays
+  reason: Use 'workingDaysV2'
+  source: graphql/koppla-graphql.graphql
+- operation: CalendarNode.exceptions
+  reason: Use 'exceptionsV2'
+  source: graphql/koppla-graphql.graphql
+- operation: MembershipNode.isAdmin
+  reason: Use role field instead. isAdmin is computed as role === ADMIN && organizationalUnit ===
+    null
+  source: graphql/koppla-graphql.graphql
+- operation: MembershipNode.isFitter
+  reason: Standard tool
+  source: graphql/koppla-graphql.graphql
+- operation: MembershipNode.isMonitor
+  reason: Standard tool
+  source: graphql/koppla-graphql.graphql
+- operation: MembershipNode.isPersonnelManager
+  reason: Standard tool
+  source: graphql/koppla-graphql.graphql
+- operation: Mutation.createOrderPhoto
+  reason: Use 'createOrderPhotoV2' for upload without size restrictions.
+  source: graphql/koppla-graphql.graphql
+- operation: Mutation.createOrderStatusReport
+  reason: Use 'createOrderStatusReports'.
+  source: graphql/koppla-graphql.graphql
+- operation: Mutation.updateTenant
+  reason: Use REST API PATCH /tenants/:tenantId and PUT /tenants/:tenantId/image instead
+  source: graphql/koppla-graphql.graphql
+- operation: Mutation.deleteTenantTradeVariation
+  reason: Use 'deleteTradeVariation' instead.
+  source: graphql/koppla-graphql.graphql
+- operation: OrderHistoryData.subcontractor
+  reason: Contributor groups
+  source: graphql/koppla-graphql.graphql
+- operation: OrderNode.legacyId
+  reason: Part of standard tools.
+  source: graphql/koppla-graphql.graphql
+- operation: OrderNode.internalId
+  reason: Part of standard tools.
+  source: graphql/koppla-graphql.graphql
+- operation: OrderNode.description
+  reason: Part of standard tools.
+  source: graphql/koppla-graphql.graphql
+- operation: OrderNode.subcontractor
+  reason: Contributor groups
+  source: graphql/koppla-graphql.graphql
+- operation: OrderTaskNode.description
+  reason: Part of standard tool removal.
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectMembershipNode.role
+  reason: 'PPM: Use ''permission''.'
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectMessageNode.causedByTenant
+  reason: Contributor groups
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectNode.status
+  reason: Use 'setupStatus'.
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectNode.memberships
+  reason: Contributor groups
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectSubcontractorNode.tenantTradeVariations
+  reason: We now support default subcontractor for a project's subcontractor. Use 'tenantTradeVariationAssignments'
+  source: graphql/koppla-graphql.graphql
+- operation: ProjectSubcontractorWorkerNode.contact
+  reason: No longer needed
+  source: graphql/koppla-graphql.graphql
+- operation: Query.project
+  reason: Use GET /projects/:projectId on the REST API instead.
+  source: graphql/koppla-graphql.graphql
+- operation: Query.tickets
+  reason: Contributor groups
+  source: graphql/koppla-graphql.graphql
+- operation: Query.projectMilestones
+  reason: Use REST API GET /projects/:projectId/milestones instead
+  source: graphql/koppla-graphql.graphql
+- operation: Query.projectMilestone
+  reason: Use REST API GET /projects/:projectId/milestones instead
+  source: graphql/koppla-graphql.graphql
+- operation: Query.wbsSections
+  reason: Use REST API GET /projects/:projectId/wbs-sections instead.
+  source: graphql/koppla-graphql.graphql
+- operation: Query.tenant
+  reason: Use REST API GET /tenants/:tenantId instead
+  source: graphql/koppla-graphql.graphql
+- operation: Query.tenantTradeVariation
+  reason: Use 'tradeVariation'.
+  source: graphql/koppla-graphql.graphql
+- operation: Query.tenantTradeVariationsInUse
+  reason: Use 'tradeVariationsUsedInProject' instead.
+  source: graphql/koppla-graphql.graphql
+- operation: TenantFeatures.enableTenantTemplates
+  reason: Use individual feature flags.
+  source: graphql/koppla-graphql.graphql
+- operation: TenantTradeVariationNode.nameAbbreviation
+  reason: No longer used after TEM1.
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.extendedDeadline
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.type
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.internalId
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.cost
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.tenantTradeVariation
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.subcontractor
+  reason: Use 'contributorGroup'
+  source: graphql/koppla-graphql.graphql
+- operation: TicketNode.upcomingDeadline
+  reason: TITO
+  source: graphql/koppla-graphql.graphql
+- operation: TradeSequenceActivityNode.tactOffset
+  reason: Tact concept will be removed with FTS, use 'offset' instead.
+  source: graphql/koppla-graphql.graphql
+- operation: TradeSequenceActivityNode.tactPosition
+  reason: No longer used with FTS.
+  source: graphql/koppla-graphql.graphql
+- operation: TradeSequenceActivityNode.personnelCapacity
+  reason: No longer used with FTS - use estimatedWorkers
+  source: graphql/koppla-graphql.graphql
+- operation: TradeSequenceActivityNode.taskTemplates
+  reason: Use 'taskTemplatesV2' instead.
+  source: graphql/koppla-graphql.graphql
+- operation: WorkingDayNode.workingTimes
+  reason: Use 'workingTimesV2'
+  source: graphql/koppla-graphql.graphql
+notes: The status page, the trust-center RTO and the in-schema deprecation inventory are genuine.
+  Versioning and sunset policy remain unpublished, so they are recorded as observed practice rather
+  than as a provider commitment.
+platform_migration:
+  direction: GraphQL -> REST
+  evidence_count: 6
+  target_host: https://api-v2.koppla.de
+  note: Six GraphQL operations are deprecated in favour of REST endpoints, indicating an in-progress
+    migration to a REST API. The REST surface is referenced by the web client config but is not publicly
+    documented and is not reachable unauthenticated.
+  operations:
+  - operation: Mutation.updateTenant
+    replacement: Use REST API PATCH /tenants/:tenantId and PUT /tenants/:tenantId/image instead
+  - operation: Query.project
+    replacement: Use GET /projects/:projectId on the REST API instead.
+  - operation: Query.projectMilestones
+    replacement: Use REST API GET /projects/:projectId/milestones instead
+  - operation: Query.projectMilestone
+    replacement: Use REST API GET /projects/:projectId/milestones instead
+  - operation: Query.wbsSections
+    replacement: Use REST API GET /projects/:projectId/wbs-sections instead.
+  - operation: Query.tenant
+    replacement: Use REST API GET /tenants/:tenantId instead

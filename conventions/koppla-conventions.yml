@@ -1,0 +1,97 @@
+generated: '2026-07-19'
+method: derived
+source: graphql/koppla-graphql-introspection.json
+note: 'koppla publishes no developer documentation, so every convention below is
+  derived from the live GraphQL schema and observed responses rather than from a
+  published guide. Nothing here is a provider claim.'
+api_style:
+  primary: GraphQL
+  endpoint: https://api.koppla.de/api/graphql/v1
+  transport: HTTPS POST (JSON)
+  secondary: REST
+  secondary_note: 'In-schema deprecation reasons instruct callers to move to a REST
+    API (for example "Use GET /projects/:projectId on the REST API instead"). A
+    second host api-v2.koppla.de is referenced by the web application config. The
+    REST surface itself is not publicly documented or reachable unauthenticated.'
+  realtime: wss://rtc.koppla.de
+  bulk: https://bulk.koppla.de/v1
+authentication:
+  style: bearer-token
+  enforced: true
+  evidence: 'An unauthenticated query for a data field returns a GraphQL error with
+    extensions.code UNAUTHENTICATED ("Invalid Authentication"). Schema introspection
+    is answered without credentials, but no data is served.'
+  identity_provider: WorkOS
+  identity_provider_evidence: the koppla web app loads assets/workosAuthenticationService-*.js
+  sso: advertised on the koppla trust center (Access Control - Single-Sign-On)
+  see: authentication/koppla-authentication.yml
+idempotency:
+  supported: false
+  note: 'No idempotency key header, parameter or directive appears anywhere in the
+    schema (zero matches for /idempoten/). Mutations do carry the Relay
+    clientMutationId field (155 occurrences), which is a request/response
+    correlation id, NOT an idempotency guarantee - it does not deduplicate retries.
+    No Idempotency pointer is emitted for this provider.'
+pagination:
+  style: relay-cursor-connections
+  params:
+  - first
+  - last
+  - before
+  - after
+  ordering_param: orderBy
+  response_fields:
+  - edges
+  - node
+  - pageInfo
+  page_info:
+  - hasNextPage
+  - hasPreviousPage
+  - startCursor
+  - endCursor
+  connection_types: 'Object types are suffixed *NodeConnection (for example
+    ProjectNodeConnection, MembershipNodeConnection); entity types are suffixed
+    *Node and most implement the Node interface.'
+field_selection:
+  style: graphql-native
+  note: GraphQL selection sets provide sparse fieldsets and expansion natively; no
+    separate expand/fields parameter convention exists.
+error_envelope:
+  format: graphql-errors
+  shape: 'errors[] with message, locations[], path[], extensions.code'
+  observed_codes:
+  - UNAUTHENTICATED
+  transport_status: 200 OK with an errors[] array (GraphQL convention)
+  see: errors/koppla-error-codes.yml
+  observation: 'Unauthenticated error responses include an exception.stacktrace with
+    server file paths and line numbers. Recorded as observed behaviour; suppressing
+    stack traces in production error extensions is a standard hardening step.'
+versioning:
+  scheme: field-level-deprecation
+  note: 'koppla has no URI or header API version. Change is managed inside the
+    schema: 45 fields carry @deprecated with a migration reason, commonly pointing at
+    a V2 sibling field (workingTimesV2, exceptionsV2, createOrderPhotoV2,
+    taskTemplatesV2) or at the newer REST API. This is a genuine, legible
+    deprecation practice even though no written policy is published.'
+  see: lifecycle/koppla-lifecycle.yml
+rate_limiting:
+  documented: false
+  signal: none observed
+  note: No rate-limit headers or schema-level throttling signals could be observed
+    without credentials.
+request_tracing:
+  request_id_header: unknown
+  client_mutation_id: 'Relay clientMutationId is accepted on mutations and echoed
+    back, usable for client-side correlation.'
+  observability: 'Sentry is used by the koppla web client (SENTRY_RELEASE web@5.202.0,
+    tunnel host stry-api.koppla.de) - client-side telemetry, not an API contract.'
+file_uploads:
+  scalar: Upload
+  note: The schema declares an Upload scalar; createOrderPhotoV2 is documented in its
+    deprecation note for the predecessor as supporting upload without size restrictions.
+cross_references:
+  authentication: authentication/koppla-authentication.yml
+  errors: errors/koppla-error-codes.yml
+  lifecycle: lifecycle/koppla-lifecycle.yml
+  data_model: data-model/koppla-data-model.yml
+  schema: graphql/koppla-graphql.graphql

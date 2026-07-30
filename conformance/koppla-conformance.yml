@@ -1,0 +1,73 @@
+generated: '2026-07-19'
+method: searched
+source: https://security.koppla.de/ + graphql/koppla-graphql-introspection.json
+standards:
+- id: iso-iec-27001
+  conforms: true
+  evidence: koppla trust center lists ISO/IEC 27001 under Compliance; both published
+    pricing tiers state "DSGVO- und ISO27001-konform"
+- id: tisax
+  conforms: true
+  evidence: koppla trust center lists TISAX under Compliance
+- id: gdpr
+  conforms: true
+  evidence: koppla trust center lists GDPR under Compliance; Data Privacy Officer,
+    Data Processing Agreement, subprocessor list and data breach notification controls
+    are published
+- id: graphql
+  conforms: true
+  evidence: 'api.koppla.de/api/graphql/v1 serves a spec-compliant GraphQL API: standard
+    introspection resolves, and errors follow the GraphQL errors[] envelope with
+    message/locations/path/extensions'
+- id: relay-connections
+  conforms: true
+  evidence: 'every list field is a Relay cursor connection - *NodeConnection types
+    with edges/node/pageInfo, first/last/before/after arguments, and a PageInfo type
+    carrying hasNextPage/hasPreviousPage/startCursor/endCursor; entity types are
+    suffixed *Node and implement a Node interface'
+- id: graphql-deprecation
+  conforms: true
+  evidence: 45 schema fields carry @deprecated with an explicit migration reason
+- id: soc2
+  conforms: false
+  evidence: no SOC 2 attestation listed on the trust center
+- id: pci-dss
+  conforms: false
+  evidence: not applicable; koppla is not a payments provider
+- id: hipaa
+  conforms: false
+  evidence: not applicable; construction scheduling, no health data
+- id: fedramp
+  conforms: false
+  evidence: German SaaS, no US federal authorization
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: not applicable to the GraphQL surface, which uses the GraphQL errors[]
+    envelope rather than application/problem+json; the in-progress REST API is not
+    publicly reachable so it could not be evaluated
+- id: idempotency
+  conforms: false
+  evidence: no idempotency key header, argument or directive exists anywhere in the
+    schema; Relay clientMutationId is correlation only and does not deduplicate retries
+- id: oauth2
+  conforms: unknown
+  evidence: 'the API accepts a bearer token, and the koppla web client loads a WorkOS
+    authentication service (which is OAuth2/OIDC-based), but koppla publishes no
+    authorization-server metadata and no /.well-known/oauth-authorization-server, so
+    the token-issuance protocol could not be confirmed'
+- id: openid-connect
+  conforms: unknown
+  evidence: SSO is advertised on the trust center (Access Control - Single-Sign-On)
+    and WorkOS is the identity provider, but no OIDC discovery document is published
+- id: rfc8594-sunset-header
+  conforms: unknown
+  evidence: deprecation is expressed in-schema; no Sunset or Deprecation HTTP header
+    contract could be observed without credentials
+- id: bim-ifc
+  conforms: unknown
+  evidence: koppla publishes a BIM integration adding the time dimension (4D) to the
+    model, but does not state which exchange standard (IFC/BCF) it implements
+notes: 'Compliance certifications are taken from koppla published claims on its
+  SafeBase trust center. Protocol conformance is derived from the live GraphQL
+  schema and observed unauthenticated responses. Anything that could not be
+  confirmed without credentials is recorded as unknown rather than assumed.'

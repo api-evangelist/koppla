@@ -1,0 +1,68 @@
+generated: '2026-07-19'
+method: searched
+source: live probes of koppla hosts, 2026-07-19
+result: none
+summary: 'No /.well-known/ discovery documents are published on any koppla host. The
+  marketing site (Framer) and the trust center return 404. The API host api.koppla.de
+  is fronted by AWS API Gateway and answers every path with HTTP 403 "Missing
+  Authentication Token", including /.well-known/*, so nothing is discoverable
+  unauthenticated. The application host my.koppla.de is a single-page app that serves
+  its HTML shell with HTTP 200 for ANY path - those 200s are catch-all false
+  positives, not real documents, and are recorded as such below.'
+hosts:
+- host: https://www.koppla.de
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://security.koppla.de
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://api.koppla.de
+  gateway: AWS API Gateway
+  body: '{"message":"Missing Authentication Token"}'
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /.well-known/openid-configuration
+    status: 403
+  - path: /.well-known/oauth-authorization-server
+    status: 403
+  - path: /.well-known/api-catalog
+    status: 403
+  - path: /.well-known/ai-plugin.json
+    status: 403
+  - path: /openapi.json
+    status: 403
+  - path: /swagger.json
+    status: 403
+  - path: /api-docs
+    status: 403
+  - path: /graphql
+    status: 403
+- host: https://my.koppla.de
+  spa_catch_all: true
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    valid: false
+    note: returns the SPA HTML shell, not an RFC 9116 document
+  - path: /.well-known/openid-configuration
+    status: 200
+    valid: false
+    note: returns the SPA HTML shell, not OIDC discovery JSON
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    valid: false
+    note: returns the SPA HTML shell
+  - path: /.well-known/api-catalog
+    status: 200
+    valid: false
+    note: returns the SPA HTML shell
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    valid: false
+    note: returns the SPA HTML shell
+files: []

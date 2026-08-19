@@ -798,3 +798,9 @@ tools:
   operation: Mutation.removeUserDeviceToken
   kind: write
   source_operation: graphql/koppla-graphql.graphql#Mutation.removeUserDeviceToken
+deployment:
+  mode: none
+  verified: derived
+  tools: 154
+  checked: '2026-08-12'
+  source: catalog MCP census

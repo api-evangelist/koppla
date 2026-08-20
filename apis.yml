@@ -45,11 +45,25 @@ tags:
 - Lean Construction
 - BIM
 - Germany
+- Software-as-a-Service
+tags_raw:
+- Company
+- Construction
+- Construction Technology
+- Project Management
+- Scheduling
+- Lean Construction
+- BIM
+- Germany
 - SaaS
 apis:
 - aid: koppla:koppla-api
   name: Koppla API
   tags:
+  - Scheduling
+  - Construction
+  - Project
+  tags_raw:
   - Scheduling
   - Construction
   - Projects

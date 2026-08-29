@@ -13,6 +13,17 @@ description: 'koppla GmbH is a Potsdam, Germany based construction technology co
   not publish a public developer portal, API reference or machine-readable
   specification, so the API is available under contract rather than via self-service
   onboarding.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve

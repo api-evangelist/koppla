@@ -26,15 +26,16 @@ deliveryModel:
   method: derived
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: unknown
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
-  confidence: medium
+  label: Unknown
+  confidence: low
   source:
   - authentication
-  generated: '2026-07-22'
+  - security
+  generated: '2026-09-03'
   method: derived
 image: https://framerusercontent.com/images/8nYdPiJ2n9S523P0LvOTKwYtTI.png
 url: https://raw.githubusercontent.com/api-evangelist/koppla/refs/heads/main/apis.yml
